@@ -18,6 +18,7 @@ import PauseMenu from '../ui/PauseMenu.js';
 import Waldo from '../characters/Waldo.js';
 import PipCollection from '../systems/PipCollection.js';
 import MusicManager from '../systems/MusicManager.js';
+import AudioManager from '../systems/AudioManager.js';
 
 const W = 1280;
 const H = 720;
@@ -31,8 +32,14 @@ export default class ActScene extends Phaser.Scene {
     this.actKey = actKey || 'act1';
   }
 
+  init(data) { this.replay = !!(data && data.replay); }
+
+  // Subclasses override with their warm replay-variant line.
+  getReplayLine() { return 'Back again! Shall we see how today treats us?'; }
+
   create() {
     if (!SaveSystem.hasSaveData()) SaveSystem.saveData = SaveSystem.createNewSave();
+    AudioManager.loadVolumes(SaveSystem);
 
     this.paused = false;
     this.walking = false;
@@ -67,6 +74,7 @@ export default class ActScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-ESC', () => this.pauseMenu.toggle());
 
     this.onCreated();
+    if (this.replay) this.time.delayedCall(900, () => this.speak(this.getReplayLine(), this.pip.x, this.pip.y - 80, 3000));
     this.cameras.main.fadeIn(500, 0, 0, 0);
     this.time.delayedCall(700, () => this.walkSegment());
   }
@@ -290,5 +298,16 @@ export default class ActScene extends Phaser.Scene {
     if (this.paused || !this.walking) return;
     const dx = SCROLL_SPEED * delta;
     this.parallaxLayers.forEach((layer) => { layer.ts.tilePositionX += layer.factor * dx; });
+
+    // Post-transformation: Waldo's glowing hooves leave fading flower blooms.
+    if (this.waldo && this.waldo.form === 'unicorn') {
+      this._bloomAcc = (this._bloomAcc || 0) + delta;
+      if (this._bloomAcc > 550) {
+        this._bloomAcc = 0;
+        const bx = this.waldo.x + Phaser.Math.Between(-40, 30);
+        const bloom = this.add.circle(bx, 600, 5, Phaser.Utils.Array.GetRandom([0xe88ec0, 0xf2c63f, 0x9b59b6]), 0.9).setDepth(36);
+        this.tweens.add({ targets: bloom, scale: 1.8, alpha: 0, duration: 2000, onComplete: () => bloom.destroy() });
+      }
+    }
   }
 }

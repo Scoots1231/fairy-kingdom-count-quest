@@ -1,9 +1,32 @@
-# Fairy Kingdom Count Quest
+# Fairy Kingdom Count Quest ✨
 
-A browser-based, side-scrolling princess adventure that teaches counting, colors,
-shapes, and matching for a kindergarten-aged player. Runs entirely in the browser,
-hosted on GitHub Pages, with save data stored on a thumb drive via the browser's
-file picker.
+A browser-based educational adventure for kindergarteners — a side-scrolling
+princess story that teaches counting, colors, shapes, and matching. Runs entirely
+in the browser, hosted on GitHub Pages, with save data stored on a thumb drive.
+
+## How to Play
+1. Open in **Chrome or Edge** (the thumb-drive save needs the File System Access API).
+2. Plug in your princess thumb drive.
+3. Click **"Load Save from Drive"** and find your save file.
+4. Begin your adventure!
+
+## First Time Playing
+Click **"New Adventure"** to start your journey as a lost princess finding her way home.
+
+## Saving Your Adventure
+Your adventure saves automatically at the end of each chapter to your thumb drive.
+Keep it safe!
+
+## What You'll Learn
+- Counting and numbers
+- Colors and shapes
+- Matching
+- And more!
+
+## Browser support
+The thumb-drive save/load uses the **File System Access API**: works in
+**Chrome 86+ / Edge 86+**. Firefox and Safari don't support it — the game shows a
+friendly note suggesting Chrome. Everything else (the whole adventure) runs anywhere.
 
 ## Tech stack
 
@@ -46,27 +69,31 @@ fairy-kingdom-count-quest/
     └── ui/             # Cursor + interactive utils (built) + stubs
 ```
 
-## Phase 1 status (Foundation & Setup)
+## Status — all five phases built
 
-Built and working:
+The full game loop is implemented and playable end to end:
 
-- Phaser 3 running at 1280×720, scales to fit the window
-- **SaveSystem** — full save schema, load-from-drive and save-to-drive via file picker
-- **Main menu** — both states (no save loaded / save loaded), Load Save button,
-  New Adventure confirmation dialog, fade transitions
-- **Custom wand cursor** — procedural wand with idle / hover / click / wrong /
-  correct / loading states and sparkle particles, applied across every scene
-- All other scenes stubbed and navigable; `items.json` scaffold in place
-- **Every button supports both mouse click and arrow keys + Enter/Space**
+- **Foundation** — Phaser 3 at 1280×720 (16:9 FIT), SaveSystem with full schema +
+  validation/migration, main menu, wand cursor (6 states), keyboard + mouse everywhere
+- **Story & hub** — 11-panel cinematic, character customization with live mirror,
+  name entry, Princess Room hub, closet/wardrobe, Pip character system
+- **Core loop** — auto-scroll engine, reusable EncounterManager, 3-tier hint system
+  (Pip never says "wrong/no/incorrect"), procedural generator, difficulty scaling,
+  RNG prize tiers + hidden pity, fairy-dust economy, Act 1
+- **Full content** — Acts 2–4 (swamp / fields / castle), 11 encounter types, Waldo's
+  three forms + transformation, coronation, 100 biome items + 10 Pip items, Benny's shop
+- **Polish & launch** — 3-channel AudioManager, Revisit My Kingdom / Act Select,
+  long-absence warm-up, save error handling, animation polish
 
-### Procedural-art note
+### Procedural-art & audio note
 
-The build doc references art and voice assets (twilight forest, Pip sprite, wand
-PNG, voiced lines) slated for later phases. To make Phase 1 render and run today,
-the background, castle, Pip, and wand cursor are drawn **procedurally with Phaser
-graphics**, and Pip's lines are shown as on-screen speech with an audio hook
-(`playVoice`) ready to wire up real audio later. Drop real assets into `assets/`
-and swap the procedural draw calls when they arrive.
+All **art is drawn procedurally with Phaser graphics** (backgrounds, characters,
+Pip, Waldo, items) — designed to be swapped for real sprites later. **Sound effects
+are synthesized live with the Web Audio API** (clicks, correct/wrong, fanfares,
+dust) so the game makes satisfying sounds with no asset files. **Voice lines and
+music are silent placeholders**, flagged in the console (`[VOICE NEEDED]` /
+`[MUSIC NEEDED]`) and catalogued in [VOICE_LINES.md](VOICE_LINES.md); drop the
+recordings into `assets/audio/` and flip `USE_AUDIO`/`USE_HOWLER` to enable them.
 
 ## Deploy to GitHub Pages
 

@@ -73,11 +73,42 @@ class SaveSystem {
       this.fileHandle = handle;
       const file = await handle.getFile();
       const text = await file.text();
-      this.saveData = JSON.parse(text);
+
+      let parsed;
+      try {
+        parsed = JSON.parse(text);
+      } catch (e) {
+        return { success: false, reason: 'corrupt', error: 'Could not parse save file' };
+      }
+      // Basic shape validation — a real save has these.
+      if (!parsed || typeof parsed !== 'object' || !parsed.version || !parsed.progress || !parsed.character) {
+        return { success: false, reason: 'corrupt', error: 'Save file is missing expected data' };
+      }
+      // Migrate: fill any fields newer than the file's version from defaults.
+      this.saveData = this.migrate(parsed);
       return { success: true, data: this.saveData };
     } catch (err) {
-      return { success: false, error: err.message };
+      // User cancelled the picker, or the drive went away mid-read.
+      const reason = err && err.name === 'AbortError' ? 'cancelled' : 'io';
+      return { success: false, reason, error: err.message };
     }
+  }
+
+  // Merge a loaded save over the current default schema so older saves gain any
+  // fields added in later phases (difficulty, bestTiers, settings, etc.).
+  migrate(parsed) {
+    const fill = (defaults, data) => {
+      if (Array.isArray(defaults)) return Array.isArray(data) ? data : defaults;
+      if (defaults && typeof defaults === 'object') {
+        const out = Array.isArray(data) ? {} : { ...(data || {}) };
+        Object.keys(defaults).forEach((k) => {
+          out[k] = (k in (data || {})) ? fill(defaults[k], data[k]) : defaults[k];
+        });
+        return out;
+      }
+      return data === undefined ? defaults : data;
+    };
+    return fill(this.createNewSave(), parsed);
   }
 
   // Save to thumb drive — overwrites existing file.
@@ -97,7 +128,8 @@ class SaveSystem {
       await writable.close();
       return { success: true };
     } catch (err) {
-      return { success: false, error: err.message };
+      const reason = err && err.name === 'AbortError' ? 'cancelled' : 'io';
+      return { success: false, reason, error: err.message };
     }
   }
 

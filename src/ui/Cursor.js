@@ -10,6 +10,8 @@
 // star centre at TIP_X/TIP_Y, and the sprite origin is set there so the tip
 // always sits exactly under the pointer regardless of rotation.
 
+import AudioManager from '../systems/AudioManager.js';
+
 const WAND_TEXTURE = 'wandCursor';
 const SPARK_TEXTURE = 'wandSpark';
 
@@ -130,7 +132,15 @@ export default class Cursor {
 
   setState(state) {
     if (!this.wand) return;
+    const prev = this.state;
     this.state = state;
+    // Sound feedback (only on transitions into the state).
+    if (state !== prev) {
+      if (state === 'hover') AudioManager.sfx('hover');
+      else if (state === 'click') AudioManager.sfx('click');
+      else if (state === 'correct') AudioManager.sfx('correct');
+      else if (state === 'wrong') AudioManager.sfx('wrong');
+    }
     switch (state) {
       case 'hover':
         this.emitter.setParticleTint(GOLD_BRIGHT);

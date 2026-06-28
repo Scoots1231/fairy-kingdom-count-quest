@@ -11,7 +11,7 @@
 
 import VoiceManager from '../systems/VoiceManager.js';
 
-const EXPRESSIONS = ['idle', 'fly', 'excited', 'concerned', 'laugh', 'tearful', 'thinking'];
+const EXPRESSIONS = ['idle', 'fly', 'excited', 'concerned', 'laugh', 'tearful', 'thinking', 'bow', 'spin'];
 
 export default class Pip extends Phaser.GameObjects.Container {
   constructor(scene, x, y, opts = {}) {
@@ -114,6 +114,20 @@ export default class Pip extends Phaser.GameObjects.Container {
 
   express(emotion) {
     if (!EXPRESSIONS.includes(emotion)) emotion = 'idle';
+
+    // One-shot animations that settle back to idle.
+    if (emotion === 'bow') {
+      this._drawFace('idle');
+      this.scene.tweens.add({ targets: this, angle: 18, y: this.y + 6, duration: 400, yoyo: true, hold: 500, ease: 'Sine.easeInOut' });
+      this.emotion = 'idle';
+      return this;
+    }
+    if (emotion === 'spin') {
+      this.express('excited');
+      this.scene.tweens.add({ targets: this, angle: this.angle + 360, duration: 600, ease: 'Cubic.easeInOut', onComplete: () => { this.angle = 0; } });
+      return this;
+    }
+
     this.emotion = emotion;
     this._drawFace(emotion);
 

@@ -16,6 +16,7 @@ export default class Act3 extends ActScene {
   constructor() { super('Act3', 'act3'); this.transformed = false; }
 
   getMountForm() { return SaveSystem.get('progress.waldoForm') === 'unicorn' ? 'unicorn' : 'horse'; }
+  getReplayLine() { return 'The flower fields! Waldo always loves this one.'; }
 
   buildScenery() {
     const sky = this.add.graphics().setDepth(0);
@@ -67,6 +68,8 @@ export default class Act3 extends ActScene {
 
   afterEncounter(record) {
     super.afterEncounter(record);
+    // Don't replay the transformation if Waldo is already a unicorn (replays).
+    if (SaveSystem.get('progress.waldoForm') === 'unicorn') this.transformed = true;
     if (!this.transformed && this.seqIndex >= 4) {
       this.transformed = true;
       this._interlude = this.transformWaldo();

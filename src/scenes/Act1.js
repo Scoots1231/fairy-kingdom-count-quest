@@ -17,6 +17,7 @@ export default class Act1 extends ActScene {
   constructor() { super('Act1', 'act1'); }
 
   onCreated() { this.awardPip('act1_start'); } // Pip's Lantern
+  getReplayLine() { return 'Back to the forest! I wonder what puzzles the trees have for us this time.'; }
 
   // ---- Scenery (parallax tile layers, placeholder art) -------------------
   buildScenery() {

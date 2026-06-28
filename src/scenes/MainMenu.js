@@ -36,6 +36,13 @@ export default class MainMenu extends Phaser.Scene {
     this.buildLoadButton();
     this.renderState();
 
+    // Friendly notice on browsers without the File System Access API.
+    if (!window.showOpenFilePicker) {
+      this.add.text(W / 2, H - 24, 'For saving to a thumb drive, please play in Chrome or Edge ✨', {
+        fontFamily: 'Georgia, serif', fontSize: '16px', color: '#cdb6e8'
+      }).setOrigin(0.5).setDepth(70);
+    }
+
     this.cameras.main.fadeIn(600, 26, 10, 46);
   }
 
@@ -235,19 +242,28 @@ export default class MainMenu extends Phaser.Scene {
         fontFamily: 'Georgia, serif', fontSize: '28px', color: '#ffe9a8'
       }).setOrigin(0.5).setDepth(40);
 
-      // After the coronation the kingdom is hers — Continue becomes Revisit.
+      // After the coronation the menu gains a third option: Revisit My Kingdom.
       const kingdomWon = SaveSystem.get('progress.act4Complete');
       const cont = createButton(this, {
-        x: W / 2, y: H * 0.55, label: kingdomWon ? '👑 Revisit My Kingdom' : '✨ Continue Adventure',
-        width: 440, height: 88, fontSize: 30, primary: true, nav: this.nav,
+        x: W / 2, y: kingdomWon ? H * 0.50 : H * 0.55, label: '✨ Continue Adventure',
+        width: 420, height: 84, fontSize: 30, primary: true, nav: this.nav,
         onActivate: () => this.continueAdventure()
       });
+      this.buttons.push(cont);
+      if (kingdomWon) {
+        const revisit = createButton(this, {
+          x: W / 2, y: H * 0.63, label: '👑 Revisit My Kingdom',
+          width: 420, height: 76, fontSize: 26, primary: false, nav: this.nav,
+          onActivate: () => this.gotoRevisit()
+        });
+        this.buttons.push(revisit);
+      }
       const fresh = createButton(this, {
-        x: W / 2, y: H * 0.68, label: '🌟 New Adventure',
-        width: 360, height: 76, fontSize: 26, primary: false, nav: this.nav,
+        x: W / 2, y: kingdomWon ? H * 0.76 : H * 0.68, label: '🌟 New Adventure',
+        width: 360, height: 70, fontSize: 24, primary: false, nav: this.nav,
         onActivate: () => this.onNewAdventure()
       });
-      this.buttons.push(cont, fresh);
+      this.buttons.push(fresh);
       this.showPipSpeech('Welcome back! Ready to\ncontinue your journey?');
       this.playVoice('pip_welcome_back');
     } else {
@@ -283,7 +299,12 @@ export default class MainMenu extends Phaser.Scene {
     const result = await SaveSystem.loadFromDrive();
     if (result.success) {
       this.renderState();
+    } else if (result.reason === 'corrupt') {
+      this.showPipSpeech('Something seems wrong with your\nsave file... we may need to start fresh.');
+    } else if (result.reason === 'io') {
+      this.showPipSpeech('Hmm... I couldn\'t read that save.\nIs the thumb drive plugged in properly?');
     } else {
+      // Cancelled or no file chosen.
       this.showPipSpeech('Oh! I couldn\'t find your save\nfile. Shall we start fresh?');
       this.playVoice('pip_no_save');
     }
@@ -305,6 +326,10 @@ export default class MainMenu extends Phaser.Scene {
 
   continueAdventure() {
     this.fadeToScene('PrincessRoom');
+  }
+
+  gotoRevisit() {
+    this.fadeToScene('ActSelect');
   }
 
   fadeToScene(key) {

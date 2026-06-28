@@ -118,6 +118,14 @@ export default class AnswerChoices {
     if (b) this.scene.tweens.add({ targets: b.container, scale: 1.2, duration: 180, yoyo: true });
   }
 
+  // Brief left-right shake on a wrong choice (3x, ~300ms) — never harsh.
+  shake(value) {
+    const b = this.buttons.find((x) => x.value === value);
+    if (!b) return;
+    const x0 = b.container.x;
+    this.scene.tweens.add({ targets: b.container, x: x0 - 8, duration: 50, yoyo: true, repeat: 3, onComplete: () => { b.container.x = x0; } });
+  }
+
   destroy() {
     this.scene.input.keyboard.off('keydown', this._keyHandler);
     this.buttons.forEach((b) => b.container.destroy());

@@ -15,6 +15,7 @@ import Cursor from '../ui/Cursor.js';
 import Pip from '../characters/Pip.js';
 import PrincessPreview from '../characters/Princess.js';
 import { seedStarterWardrobe } from '../systems/StarterItems.js';
+import AudioManager from '../systems/AudioManager.js';
 
 const W = 1280;
 const H = 720;
@@ -35,6 +36,7 @@ export default class PrincessRoom extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#2a1535');
 
     if (!SaveSystem.hasSaveData()) SaveSystem.saveData = SaveSystem.createNewSave();
+    AudioManager.loadVolumes(SaveSystem);
     seedStarterWardrobe(SaveSystem); // Phase-2 demo wardrobe (Acts will replace)
 
     this.sessionStart();
@@ -56,7 +58,8 @@ export default class PrincessRoom extends Phaser.Scene {
     this.refreshFocus();
 
     // Welcome.
-    this.welcomeBubble(this.absenceDays > 14 ? 'room_absence' : 'room_welcome_back');
+    if (this.absenceDays > 14) this.time.delayedCall(500, () => this.showWarmUpOffer());
+    else this.welcomeBubble('room_welcome_back');
 
     this.events.once('shutdown', () => this.persistLayout());
     this.cameras.main.fadeIn(400, 26, 10, 46);
@@ -198,6 +201,13 @@ export default class PrincessRoom extends Phaser.Scene {
       if (form === 'unicorn') { g.fillStyle(0xffd86b, 1); g.fillTriangle(44, -14, 50, -14, 47, -34); } // horn
     }
     this.waldo.add(g);
+
+    // Unicorn horn pulses softly on a ~3 second cycle.
+    if (form === 'unicorn') {
+      const hornGlow = this.add.ellipse(47, -34, 16, 16, 0xfff2b0, 0.5).setBlendMode(Phaser.BlendModes.ADD);
+      this.waldo.add(hornGlow);
+      this.tweens.add({ targets: hornGlow, scaleX: 1.8, scaleY: 1.8, alpha: 0.15, duration: 1500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
   }
 
   nuzzleWaldo() {
@@ -289,6 +299,39 @@ export default class PrincessRoom extends Phaser.Scene {
       this.pip.express('idle');
       this.pip.say(voiceKey);
     });
+  }
+
+  // 14+ days away: warmly offer to show the puzzles again.
+  showWarmUpOffer() {
+    if (this.pip) { this.pip.express('idle'); this.pip.say('room_absence'); }
+    const dlg = this.add.container(0, 0).setDepth(3000);
+    const shade = this.add.rectangle(W / 2, H / 2, W, H, 0x0a0418, 0.6).setInteractive();
+    const panel = this.add.graphics();
+    panel.fillStyle(0x2a1646, 0.98); panel.fillRoundedRect(W / 2 - 340, H / 2 - 140, 680, 280, 22);
+    panel.lineStyle(4, 0xffd86b, 1); panel.strokeRoundedRect(W / 2 - 340, H / 2 - 140, 680, 280, 22);
+    const msg = this.add.text(W / 2, H / 2 - 60, "It's been a while — shall I show you\nhow the puzzles work again?", {
+      fontFamily: 'Georgia, serif', fontSize: '24px', color: '#fff6e0', align: 'center'
+    }).setOrigin(0.5);
+    dlg.add([shade, panel, msg]);
+
+    const close = () => { dlg.destroy(); this.input.keyboard.off('keydown', kh); };
+    const yes = this.makeButton(W / 2 - 170, H / 2 + 60, 280, 70, 'Yes please!', () => {
+      // Re-teach: clear introductions so the next act re-explains each type.
+      const intro = SaveSystem.get('encounterIntroductions') || {};
+      Object.keys(intro).forEach((k) => SaveSystem.set(`encounterIntroductions.${k}`, false));
+      close();
+    });
+    const no = this.makeButton(W / 2 + 170, H / 2 + 60, 280, 70, 'I remember!', () => close());
+    dlg.add([yes.container, no.container]);
+
+    let focus = 0;
+    const draw = () => { yes.draw(focus === 0); no.draw(focus === 1); };
+    draw();
+    const kh = (e) => {
+      if (e.code === 'ArrowLeft' || e.code === 'ArrowRight') { focus = 1 - focus; draw(); }
+      else if (e.code === 'Enter' || e.code === 'Space') { (focus === 0 ? yes : no).onActivate(); }
+    };
+    this.input.keyboard.on('keydown', kh);
   }
 
   // ---- Focus / keyboard ---------------------------------------------------

@@ -171,7 +171,7 @@ export default class Wardrobe extends Phaser.Scene {
     else if (item.slot === 'shoes') key = 'closet_shoes';
     else if (this.equippedBiomes().size > 1) key = 'closet_mismatch';
 
-    this.pip.express(key === 'closet_crown_first' ? 'tearful' : 'excited');
+    this.pip.express(key === 'closet_full_set' ? 'spin' : (key === 'closet_crown_first' ? 'tearful' : 'excited'));
     if (key) {
       // Caption uses the player's name where relevant.
       this.pip.say(key);

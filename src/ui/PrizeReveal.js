@@ -9,6 +9,7 @@
 import SaveSystem from '../systems/SaveSystem.js';
 import RewardSystem from '../systems/RewardSystem.js';
 import FairyDustManager from '../systems/FairyDustManager.js';
+import AudioManager from '../systems/AudioManager.js';
 
 const W = 1280;
 const H = 720;
@@ -22,6 +23,14 @@ export default function runPrizeReveal(scene, opts) {
 
     // Roll the tier (RNG by score, then hidden pity), then pick the item.
     const tier = RewardSystem.rollPrizeTier(opts.actKey, score);
+
+    // Track the best tier achieved per act (for the Act Select screen).
+    const tierRank = { bronze: 1, silver: 2, gold: 3 };
+    const best = SaveSystem.get('bestTiers') || {};
+    if (!best[opts.actKey] || tierRank[tier] > tierRank[best[opts.actKey]]) {
+      best[opts.actKey] = tier;
+      SaveSystem.set('bestTiers', best);
+    }
     const pool = (opts.prizePool && opts.prizePool[tier]) || [];
     const item = pool.length ? pool[Phaser.Math.Between(0, pool.length - 1)] : null;
 
@@ -45,6 +54,7 @@ export default function runPrizeReveal(scene, opts) {
 
     // Drumroll + chest.
     if (opts.pip) { opts.pip.express('excited'); opts.pip.say('pip_revelation'); }
+    AudioManager.sfx('chest');
 
     const chest = scene.add.container(W / 2, 380);
     const cg = scene.add.graphics();
@@ -79,6 +89,7 @@ export default function runPrizeReveal(scene, opts) {
         quantity: tier === 'gold' ? 40 : tier === 'silver' ? 24 : 12, tint: TIER_COLOR[tier], blendMode: 'ADD', emitting: false
       });
       burst.explode();
+      AudioManager.sfx(`prize_${tier}`);
 
       // Pip reaction escalates by tier.
       if (opts.pip) {
@@ -137,10 +148,16 @@ function this_presentDust(scene, layer, opts, score, done) {
   });
   layer.add(shower);
 
-  // Count up.
+  // Count up — counter glows gold and tinkles as it rises.
+  counter.setColor('#fff3c4');
+  let lastTick = result.from;
   scene.tweens.addCounter({
     from: result.from, to: result.to, duration: 1400, ease: 'Cubic.easeOut',
-    onUpdate: (t) => counter.setText(`✨ ${Math.round(t.getValue())}`),
+    onUpdate: (t) => {
+      const val = Math.round(t.getValue());
+      counter.setText(`✨ ${val}`);
+      if (val - lastTick >= 8) { lastTick = val; AudioManager.sfx('dust'); }
+    },
     onComplete: () => { scene.time.delayedCall(1200, () => { shower.stop(); done(); }); }
   });
 }

@@ -13,10 +13,15 @@ import Act4 from './scenes/Act4.js';
 import PrincessRoom from './scenes/PrincessRoom.js';
 import Shop from './scenes/Shop.js';
 import Closet from './ui/Wardrobe.js';
+import ActSelect from './scenes/ActSelect.js';
 import ItemDB from './systems/ItemDB.js';
+import AudioManager from './systems/AudioManager.js';
 
 // Load the item database once at boot so act prize pools and the shop are ready.
 ItemDB.load();
+
+// Resume the Web Audio context on the first user gesture (browser requirement).
+AudioManager.installUnlock();
 
 const config = {
   type: Phaser.AUTO,
@@ -24,7 +29,7 @@ const config = {
   width: 1280,
   height: 720,
   backgroundColor: '#1a0a2e',
-  scene: [MainMenu, Cinematic, Customization, Act1, Act2, Act3, Act4, PrincessRoom, Shop, Closet],
+  scene: [MainMenu, Cinematic, Customization, Act1, Act2, Act3, Act4, PrincessRoom, Shop, Closet, ActSelect],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH

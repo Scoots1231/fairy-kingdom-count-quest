@@ -155,7 +155,7 @@ export default class EncounterManager {
       correctValue: presentation.correctValue, avoidIndex: this.lastCorrectIndex,
       onSelect: (value) => {
         if (value === presentation.correctValue) this.onCorrect(state);
-        else this.onWrong(state, () => choices.getButtonForValue(presentation.correctValue));
+        else { choices.shake(value); this.onWrong(state, () => choices.getButtonForValue(presentation.correctValue)); }
       }
     });
     this.choices = choices;

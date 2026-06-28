@@ -18,6 +18,7 @@ export default class Act4 extends ActScene {
   constructor() { super('Act4', 'act4'); }
 
   getMountForm() { return 'unicorn'; }
+  getReplayLine() { return `Back to the castle! Your kingdom awaits, Princess ${SaveSystem.get('playerName') || ''}.`; }
 
   onCreated() { this.showBanner('Castle Approach'); }
 
@@ -109,7 +110,7 @@ export default class Act4 extends ActScene {
       SaveSystem.set('progress.crownUnlocked', true);
 
       this.time.delayedCall(2000, () => {
-        this.pip.express('excited');
+        this.pip.express('bow'); // Pip bows to the new Princess
         this.speak(`Welcome home, Princess ${name}.`, W / 2, 220, 3000);
         this.time.delayedCall(3200, () => this.runGrandPrize());
       });

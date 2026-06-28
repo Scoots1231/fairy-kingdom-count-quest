@@ -17,6 +17,7 @@ export default class Act2 extends ActScene {
   constructor() { super('Act2', 'act2'); }
 
   getMountForm() { return 'horse'; }
+  getReplayLine() { return 'The swamp again! The dragonflies will be pleased to see you.'; }
 
   buildScenery() {
     const sky = this.add.graphics().setDepth(0);

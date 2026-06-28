@@ -5,6 +5,7 @@
 // volume sliders. Full keyboard (arrows + Enter, Esc resumes) and mouse support.
 
 import SaveSystem from '../systems/SaveSystem.js';
+import AudioManager from '../systems/AudioManager.js';
 
 const W = 1280;
 const H = 720;
@@ -15,9 +16,9 @@ export default class PauseMenu {
     this.open = false;
     this.container = null;
     this.focusIndex = 0;
-    // Persisted-ish volumes (session scope; wired to Howler for music).
-    this.musicVol = (window.Howler && window.Howler.volume()) || 0.7;
-    this.sfxVol = 0.8;
+    // Volumes come from the AudioManager (which loaded them from the save).
+    this.musicVol = AudioManager.channelVolume('music');
+    this.sfxVol = AudioManager.channelVolume('sfx');
   }
 
   toggle() { this.open ? this.close() : this.show(); }
@@ -97,8 +98,17 @@ export default class PauseMenu {
     return row;
   }
 
-  setMusic(v) { this.musicVol = Phaser.Math.Clamp(v, 0, 1); if (window.Howler) window.Howler.volume(this.musicVol); }
-  setSfx(v) { this.sfxVol = Phaser.Math.Clamp(v, 0, 1); }
+  setMusic(v) {
+    this.musicVol = Phaser.Math.Clamp(v, 0, 1);
+    AudioManager.setChannelVolume('music', this.musicVol, SaveSystem);
+  }
+  setSfx(v) {
+    this.sfxVol = Phaser.Math.Clamp(v, 0, 1);
+    // SFX & Voice slider drives both the sfx and voice channels.
+    AudioManager.setChannelVolume('sfx', this.sfxVol, SaveSystem);
+    AudioManager.setChannelVolume('voice', this.sfxVol, SaveSystem);
+    AudioManager.sfx('hover'); // audible preview
+  }
 
   onKey(e) {
     if (!this.open) return;
