@@ -15,6 +15,9 @@ import HintSystem from '../ui/HintSystem.js';
 import EncounterManager from '../systems/EncounterManager.js';
 import DifficultyScaler from '../systems/DifficultyScaler.js';
 import PauseMenu from '../ui/PauseMenu.js';
+import Waldo from '../characters/Waldo.js';
+import PipCollection from '../systems/PipCollection.js';
+import MusicManager from '../systems/MusicManager.js';
 
 const W = 1280;
 const H = 720;
@@ -57,15 +60,19 @@ export default class ActScene extends Phaser.Scene {
     this.commentary = this.getCommentary().slice();
     this.applyAbsenceWarmup();
 
+    MusicManager.playAct(this.actKey);
+
     this.pauseMenu = new PauseMenu(this);
     this.buildPauseButton();
     this.input.keyboard.on('keydown-ESC', () => this.pauseMenu.toggle());
 
+    this.onCreated();
     this.cameras.main.fadeIn(500, 0, 0, 0);
     this.time.delayedCall(700, () => this.walkSegment());
   }
 
   // ---- Hooks (subclass overrides) ----------------------------------------
+  onCreated() {}
   buildScenery() {}
   getSequence() { return []; }
   getCommentary() { return []; }
@@ -73,15 +80,34 @@ export default class ActScene extends Phaser.Scene {
   teach() { return Promise.resolve(); }
   chapterEnd() { this.gotoRoom(); }
 
+  // Subclass overrides to ride Waldo: 'none' | 'horse' | 'unicorn'.
+  getMountForm() { return 'none'; }
+
   // ---- Actors -------------------------------------------------------------
   buildActors() {
-    this.princess = new PrincessPreview(this, 380, 430, { height: 280, static: true });
+    const mount = this.getMountForm();
+    const riding = mount !== 'none';
+    const py = riding ? 392 : 430;
+
+    if (riding) {
+      this.waldo = new Waldo(this, 380, 470, mount, { scale: 1 });
+      this.waldo.setDepth(38);
+    }
+
+    this.princess = new PrincessPreview(this, 380, py, { height: riding ? 240 : 280, static: true });
     this.princess.setCharacter(SaveSystem.get('character')).setOutfit(SaveSystem.get('currentOutfit')).redraw();
     this.princess.setDepth(40);
-    this.walkBob = this.tweens.add({ targets: this.princess, y: 422, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.walkBob = this.tweens.add({ targets: this.princess, y: py - 8, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
-    this.pip = new Pip(this, 540, 350, { scale: 0.9 });
+    this.pip = new Pip(this, 560, 330, { scale: 0.9 });
     this.pip.setDepth(45);
+  }
+
+  // Award a Pip-collection milestone item with a brief toast.
+  awardPip(milestone) {
+    const item = PipCollection.award(milestone);
+    if (item) this.speak(`Pip gives you: ${item.name}!`, this.pip.x, this.pip.y - 80, 2600);
+    return item;
   }
 
   buildAmbient() {
@@ -129,12 +155,42 @@ export default class ActScene extends Phaser.Scene {
 
   startEncounter() {
     this.walking = false; // scroll stops completely for the encounter
+    if (MusicManager) MusicManager.duck(true);
     const spec = this.sequence[this.seqIndex];
     this.seqIndex += 1;
-    this.encounter.run(spec).then(() => {
-      // Resolved correctly — resume scroll toward the next zone.
-      this.time.delayedCall(300, () => this.walkSegment());
+    this.encounter.run(spec).then((record) => {
+      this.afterEncounter(record);
+      if (MusicManager) MusicManager.duck(false);
+      const cont = () => this.time.delayedCall(300, () => this.walkSegment());
+      // A subclass may set this._interlude (a Promise) to play a mid-act
+      // cinematic before the scroll resumes (e.g. Waldo's transformation).
+      if (this._interlude) { const p = this._interlude; this._interlude = null; Promise.resolve(p).then(cont); }
+      else cont();
     });
+  }
+
+  // Generate a tiling texture once (used for parallax layers).
+  makeTile(key, w, h, drawFn) {
+    if (this.textures.exists(key)) return;
+    const g = this.add.graphics();
+    drawFn(g);
+    g.generateTexture(key, w, h);
+    g.destroy();
+  }
+
+  // Register a tilesprite parallax layer.
+  addLayer(key, y, h, factor, depth) {
+    const ts = this.add.tileSprite(0, y, W, h, key).setOrigin(0, 0).setDepth(depth);
+    this.parallaxLayers.push({ ts, factor });
+    return ts;
+  }
+
+  // Hook after each encounter resolves (record = performance record).
+  afterEncounter(record) {
+    // First-ever perfect answer -> Pip's Spectacles.
+    if (record && record.attempts === 1 && record.hintsUsed === 0) this.awardPip('first_perfect');
+    // Post-transformation Waldo celebrates correct answers with a horn glow.
+    if (this.waldo && this.waldo.form === 'unicorn') this.waldo.glowPulse();
   }
 
   sayCommentary() {
@@ -194,6 +250,28 @@ export default class ActScene extends Phaser.Scene {
     if (!perf.lastSession) return;
     const days = (Date.now() - new Date(perf.lastSession).getTime()) / 86400000;
     if (days > 14) DifficultyScaler.applyAbsenceWarmup(this.actKey);
+  }
+
+  // ---- Shared helpers for subclasses -------------------------------------
+  teachSequence(lines) {
+    return new Promise((resolve) => {
+      let i = 0;
+      const next = () => { if (i >= lines.length) { resolve(); return; } this.speak(lines[i++], undefined, undefined, 2500); this.time.delayedCall(2700, next); };
+      next();
+    });
+  }
+
+  computeScore(actKey) {
+    const hist = SaveSystem.get(`performance.${actKey || this.actKey}History`) || [];
+    let s = 100;
+    hist.forEach((e) => { if (e.attempts > 1) s -= 8; if (e.hintsUsed === 1) s -= 5; else if (e.hintsUsed === 2) s -= 10; else if (e.hintsUsed === 3) s -= 15; });
+    return Math.max(0, s);
+  }
+
+  fadeToScene(key) {
+    if (this.wandCursor) this.wandCursor.setState('loading');
+    this.cameras.main.fadeOut(600, 0, 0, 0);
+    this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start(key));
   }
 
   // ---- Chapter end --------------------------------------------------------

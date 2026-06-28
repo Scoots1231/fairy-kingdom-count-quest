@@ -235,9 +235,11 @@ export default class MainMenu extends Phaser.Scene {
         fontFamily: 'Georgia, serif', fontSize: '28px', color: '#ffe9a8'
       }).setOrigin(0.5).setDepth(40);
 
+      // After the coronation the kingdom is hers — Continue becomes Revisit.
+      const kingdomWon = SaveSystem.get('progress.act4Complete');
       const cont = createButton(this, {
-        x: W / 2, y: H * 0.55, label: '✨ Continue Adventure',
-        width: 420, height: 88, fontSize: 30, primary: true, nav: this.nav,
+        x: W / 2, y: H * 0.55, label: kingdomWon ? '👑 Revisit My Kingdom' : '✨ Continue Adventure',
+        width: 440, height: 88, fontSize: 30, primary: true, nav: this.nav,
         onActivate: () => this.continueAdventure()
       });
       const fresh = createButton(this, {

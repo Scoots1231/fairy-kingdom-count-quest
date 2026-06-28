@@ -1,10 +1,2022 @@
 {
-  "biomes": {
-    "forest": { "items": [] },
-    "swamp": { "items": [] },
-    "fields": { "items": [] },
-    "castle": { "items": [] }
-  },
-  "pip": { "items": [] },
-  "shop": { "items": [] }
+    "biomes":  {
+                   "forest":  {
+                                  "items":  [
+                                                {
+                                                    "id":  "forest_mossy_green_traveling_cloak",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "dress",
+                                                    "tier":  "bronze",
+                                                    "name":  "Mossy Green Traveling Cloak",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_bark_textured_forest_boots",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "shoes",
+                                                    "tier":  "bronze",
+                                                    "name":  "Bark Textured Forest Boots",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_moonlight_silver_dress",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "dress",
+                                                    "tier":  "silver",
+                                                    "name":  "Moonlight Silver Dress",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_twisted_vine_hair_wreath",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "silver",
+                                                    "name":  "Twisted Vine Hair Wreath",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_the_enchanted_forest_outfit",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "set",
+                                                    "tier":  "gold",
+                                                    "name":  "The Enchanted Forest Outfit",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  175
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  16767083,
+                                                    "pieces":  [
+                                                                   {
+                                                                       "id":  "forest_twisted_branch_crown",
+                                                                       "slot":  "hat",
+                                                                       "name":  "Twisted Branch Crown",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "forest_firefly_gown",
+                                                                       "slot":  "dress",
+                                                                       "name":  "Firefly Gown",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "forest_moonlight_silver_top",
+                                                                       "slot":  "shirt",
+                                                                       "name":  "Moonlight Silver Top",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "forest_deep_green_forest_leggings",
+                                                                       "slot":  "pants",
+                                                                       "name":  "Deep Green Forest Leggings",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "forest_vine_wrapped_forest_boots",
+                                                                       "slot":  "shoes",
+                                                                       "name":  "Vine Wrapped Forest Boots",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   }
+                                                               ]
+                                                },
+                                                {
+                                                    "id":  "forest_glowing_mushroom_cluster",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Glowing Mushroom Cluster",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_ancient_mossy_stone_fountain",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Ancient Mossy Stone Fountain",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_firefly_lantern",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Firefly Lantern",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_firefly_hair_pins",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "bronze",
+                                                    "name":  "Firefly Hair Pins",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_mushroom_cap_hat",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "bronze",
+                                                    "name":  "Mushroom Cap Hat",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_deep_green_forest_leggings_shop",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "pants",
+                                                    "tier":  "bronze",
+                                                    "name":  "Deep Green Forest Leggings Shop",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_silver_moonbeam_shirt",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "shirt",
+                                                    "tier":  "silver",
+                                                    "name":  "Silver Moonbeam Shirt",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_vine_wrapped_ankle_boots",
+                                                    "biome":  "forest",
+                                                    "type":  "clothing",
+                                                    "slot":  "shoes",
+                                                    "tier":  "silver",
+                                                    "name":  "Vine Wrapped Ankle Boots",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_cobweb_lantern",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Cobweb Lantern",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_moss_covered_bookshelf",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Moss Covered Bookshelf",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_owl_portrait",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Owl Portrait",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_moonlight_window",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Moonlight Window",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_ancient_tree_stump_side_table",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Ancient Tree Stump Side Table",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_glowing_fern_floor_plant",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Glowing Fern Floor Plant",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_mushroom_ring_rug",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Mushroom Ring Rug",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_forest_creature_music_box",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Forest Creature Music Box",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_mossy_stone_wall_tiles",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Mossy Stone Wall Tiles",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  7311183
+                                                },
+                                                {
+                                                    "id":  "forest_twisted_branch_candelabra",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Twisted Branch Candelabra",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_woodland_creature_painting",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Woodland Creature Painting",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  12109526
+                                                },
+                                                {
+                                                    "id":  "forest_hidden_door_bookshelf",
+                                                    "biome":  "forest",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Hidden Door Bookshelf",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  12109526
+                                                }
+                                            ]
+                              },
+                   "swamp":  {
+                                 "items":  [
+                                               {
+                                                   "id":  "swamp_teal_lily_pad_skirt",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "dress",
+                                                   "tier":  "bronze",
+                                                   "name":  "Teal Lily Pad Skirt",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_pearl_drop_headband",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "hat",
+                                                   "tier":  "bronze",
+                                                   "name":  "Pearl Drop Headband",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_iridescent_dragonfly_wing_shirt",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "shirt",
+                                                   "tier":  "silver",
+                                                   "name":  "Iridescent Dragonfly Wing Shirt",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_silver_mist_flowing_pants",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "pants",
+                                                   "tier":  "silver",
+                                                   "name":  "Silver Mist Flowing Pants",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_the_mist_queen_outfit",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "set",
+                                                   "tier":  "gold",
+                                                   "name":  "The Mist Queen Outfit",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  175
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  16767083,
+                                                   "pieces":  [
+                                                                  {
+                                                                      "id":  "swamp_silver_mist_veil_headpiece",
+                                                                      "slot":  "hat",
+                                                                      "name":  "Silver Mist Veil Headpiece",
+                                                                      "color":  16767083,
+                                                                      "animated":  true
+                                                                  },
+                                                                  {
+                                                                      "id":  "swamp_iridescent_dragonfly_gown",
+                                                                      "slot":  "dress",
+                                                                      "name":  "Iridescent Dragonfly Gown",
+                                                                      "color":  16767083,
+                                                                      "animated":  true
+                                                                  },
+                                                                  {
+                                                                      "id":  "swamp_lily_pad_green_draped_top",
+                                                                      "slot":  "shirt",
+                                                                      "name":  "Lily Pad Green Draped Top",
+                                                                      "color":  16767083,
+                                                                      "animated":  true
+                                                                  },
+                                                                  {
+                                                                      "id":  "swamp_teal_water_silk_trousers",
+                                                                      "slot":  "pants",
+                                                                      "name":  "Teal Water Silk Trousers",
+                                                                      "color":  16767083,
+                                                                      "animated":  true
+                                                                  },
+                                                                  {
+                                                                      "id":  "swamp_pearl_encrusted_swamp_slippers",
+                                                                      "slot":  "shoes",
+                                                                      "name":  "Pearl Encrusted Swamp Slippers",
+                                                                      "color":  16767083,
+                                                                      "animated":  true
+                                                                  }
+                                                              ]
+                                               },
+                                               {
+                                                   "id":  "swamp_small_lily_pad_pond",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "bronze",
+                                                   "name":  "Small Lily Pad Pond",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_hanging_spanish_moss_curtains",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Hanging Spanish Moss Curtains",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_dragonfly_mobile",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Dragonfly Mobile",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "prize",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  null,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_dragonfly_wing_hair_clips",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "hat",
+                                                   "tier":  "bronze",
+                                                   "name":  "Dragonfly Wing Hair Clips",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_pearl_encrusted_swamp_slippers_shop",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "shoes",
+                                                   "tier":  "silver",
+                                                   "name":  "Pearl Encrusted Swamp Slippers Shop",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  300,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_lily_pad_draped_shirt",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "shirt",
+                                                   "tier":  "bronze",
+                                                   "name":  "Lily Pad Draped Shirt",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_mist_colored_silk_gloves",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "shirt",
+                                                   "tier":  "silver",
+                                                   "name":  "Mist Colored Silk Gloves",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  300,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_woven_reed_belt",
+                                                   "biome":  "swamp",
+                                                   "type":  "clothing",
+                                                   "slot":  "pants",
+                                                   "tier":  "bronze",
+                                                   "name":  "Woven Reed Belt",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_cattail_floor_lamp",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "bronze",
+                                                   "name":  "Cattail Floor Lamp",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_frog_prince_statue",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "bronze",
+                                                   "name":  "Frog Prince Statue",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_misty_mirror",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Misty Mirror",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  600,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_reed_woven_floor_rug",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "bronze",
+                                                   "name":  "Reed Woven Floor Rug",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_dragonfly_specimen_display",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Dragonfly Specimen Display",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  300,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_swamp_diorama",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Swamp Diorama",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  300,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_water_lily_centerpiece",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "bronze",
+                                                   "name":  "Water Lily Centerpiece",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_glowing_algae_wall_panel",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Glowing Algae Wall Panel",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  600,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_ancient_sunken_treasure_chest",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Ancient Sunken Treasure Chest",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  600,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_weeping_willow_corner_tree",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Weeping Willow Corner Tree",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  300,
+                                                   "color":  13625058
+                                               },
+                                               {
+                                                   "id":  "swamp_swamp_sunset_painting",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "bronze",
+                                                   "name":  "Swamp Sunset Painting",
+                                                   "description":  "",
+                                                   "animated":  false,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  20
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  75,
+                                                   "color":  4173471
+                                               },
+                                               {
+                                                   "id":  "swamp_crystal_water_feature",
+                                                   "biome":  "swamp",
+                                                   "type":  "room",
+                                                   "slot":  "decor",
+                                                   "tier":  "silver",
+                                                   "name":  "Crystal Water Feature",
+                                                   "description":  "",
+                                                   "animated":  true,
+                                                   "source":  "shop",
+                                                   "dustValue":  {
+                                                                     "duplicate":  62
+                                                                 },
+                                                   "upgradeFrom":  null,
+                                                   "shopPrice":  600,
+                                                   "color":  13625058
+                                               }
+                                           ]
+                             },
+                   "fields":  {
+                                  "items":  [
+                                                {
+                                                    "id":  "fields_wildflower_sundress",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "dress",
+                                                    "tier":  "bronze",
+                                                    "name":  "Wildflower Sundress",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_sunshine_yellow_ribbon_hair_bow",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "bronze",
+                                                    "name":  "Sunshine Yellow Ribbon Hair Bow",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_lavender_butterfly_sleeve_shirt",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "shirt",
+                                                    "tier":  "silver",
+                                                    "name":  "Lavender Butterfly Sleeve Shirt",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_honeybee_embroidered_pants",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "pants",
+                                                    "tier":  "silver",
+                                                    "name":  "Honeybee Embroidered Pants",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_the_unicorn_blessing_outfit",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "set",
+                                                    "tier":  "gold",
+                                                    "name":  "The Unicorn Blessing Outfit",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  175
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  16767083,
+                                                    "pieces":  [
+                                                                   {
+                                                                       "id":  "fields_living_flower_crown",
+                                                                       "slot":  "hat",
+                                                                       "name":  "Living Flower Crown",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "fields_full_bloom_gown",
+                                                                       "slot":  "dress",
+                                                                       "name":  "Full Bloom Gown",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "fields_sunshine_bee_top",
+                                                                       "slot":  "shirt",
+                                                                       "name":  "Sunshine Bee Top",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "fields_lavender_butterfly_trousers",
+                                                                       "slot":  "pants",
+                                                                       "name":  "Lavender Butterfly Trousers",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "fields_glass_slippers_with_petals",
+                                                                       "slot":  "shoes",
+                                                                       "name":  "Glass Slippers With Petals",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   }
+                                                               ]
+                                                },
+                                                {
+                                                    "id":  "fields_windowsill_flower_box",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Windowsill Flower Box",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_waldo_unicorn_portrait",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Waldo Unicorn Portrait",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_bunny_family_figurines",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Bunny Family Figurines",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_daisy_chain_flower_crown",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "bronze",
+                                                    "name":  "Daisy Chain Flower Crown",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_bumble_bee_sash",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "shirt",
+                                                    "tier":  "bronze",
+                                                    "name":  "Bumble Bee Sash",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_bunny_ear_headband",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "bronze",
+                                                    "name":  "Bunny Ear Headband",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_glass_slipper_shoes",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "shoes",
+                                                    "tier":  "silver",
+                                                    "name":  "Glass Slipper Shoes",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_lavender_silk_ankle_socks",
+                                                    "biome":  "fields",
+                                                    "type":  "clothing",
+                                                    "slot":  "shoes",
+                                                    "tier":  "bronze",
+                                                    "name":  "Lavender Silk Ankle Socks",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_honey_jar_collection",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Honey Jar Collection",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_bunny_plush_on_bed",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Bunny Plush On Bed",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_flower_petal_rug",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Flower Petal Rug",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_beehive_music_box",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Beehive Music Box",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_butterfly_garden_frame",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Butterfly Garden Frame",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_sunflower_corner_plant",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Sunflower Corner Plant",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_meadow_mural_wall_panel",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Meadow Mural Wall Panel",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_picnic_basket_side_table",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Picnic Basket Side Table",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                },
+                                                {
+                                                    "id":  "fields_rainbow_mobile",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Rainbow Mobile",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_field_of_flowers_snow_globe",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Field Of Flowers Snow Globe",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_waldo_unicorn_statue",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Waldo Unicorn Statue",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15258474
+                                                },
+                                                {
+                                                    "id":  "fields_bee_keepers_shelf",
+                                                    "biome":  "fields",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Bee Keepers Shelf",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  15245512
+                                                }
+                                            ]
+                              },
+                   "castle":  {
+                                  "items":  [
+                                                {
+                                                    "id":  "castle_royal_purple_velvet_shoes",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "shoes",
+                                                    "tier":  "bronze",
+                                                    "name":  "Royal Purple Velvet Shoes",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_starlight_hair_pins",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "bronze",
+                                                    "name":  "Starlight Hair Pins",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_deep_purple_royal_court_dress",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "dress",
+                                                    "tier":  "silver",
+                                                    "name":  "Deep Purple Royal Court Dress",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_white_royal_blouse_with_gold_crest",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "shirt",
+                                                    "tier":  "silver",
+                                                    "name":  "White Royal Blouse With Gold Crest",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_the_coronation_regalia",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "set",
+                                                    "tier":  "gold",
+                                                    "name":  "The Coronation Regalia",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  175
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  16767083,
+                                                    "pieces":  [
+                                                                   {
+                                                                       "id":  "castle_full_coronation_crown",
+                                                                       "slot":  "hat",
+                                                                       "name":  "Full Coronation Crown",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "castle_starlight_constellation_gown",
+                                                                       "slot":  "dress",
+                                                                       "name":  "Starlight Constellation Gown",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "castle_white_royal_blouse",
+                                                                       "slot":  "shirt",
+                                                                       "name":  "White Royal Blouse",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "castle_deep_purple_royal_trousers",
+                                                                       "slot":  "pants",
+                                                                       "name":  "Deep Purple Royal Trousers",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   },
+                                                                   {
+                                                                       "id":  "castle_golden_heeled_royal_slippers",
+                                                                       "slot":  "shoes",
+                                                                       "name":  "Golden Heeled Royal Slippers",
+                                                                       "color":  16767083,
+                                                                       "animated":  true
+                                                                   }
+                                                               ]
+                                                },
+                                                {
+                                                    "id":  "castle_royal_banner",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Royal Banner",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_crystal_chandelier",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Crystal Chandelier",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_royal_music_box",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Royal Music Box",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "prize",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  null,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_pearl_tiara",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "hat",
+                                                    "tier":  "silver",
+                                                    "name":  "Pearl Tiara",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_royal_purple_cape",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "dress",
+                                                    "tier":  "silver",
+                                                    "name":  "Royal Purple Cape",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_golden_sash_with_kingdom_crest",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "shirt",
+                                                    "tier":  "bronze",
+                                                    "name":  "Golden Sash With Kingdom Crest",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_formal_white_lace_gloves",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "shirt",
+                                                    "tier":  "bronze",
+                                                    "name":  "Formal White Lace Gloves",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_constellation_print_stockings",
+                                                    "biome":  "castle",
+                                                    "type":  "clothing",
+                                                    "slot":  "pants",
+                                                    "tier":  "silver",
+                                                    "name":  "Constellation Print Stockings",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_royal_bookshelf",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Royal Bookshelf",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_starlight_ceiling_mobile",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Starlight Ceiling Mobile",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_crown_display_stand",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Crown Display Stand",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_royal_portrait_frame",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Royal Portrait Frame",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_throne_chair",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Throne Chair",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_telescope_by_window",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Telescope By Window",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_royal_fireplace",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Royal Fireplace",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_knight_armor_display",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Knight Armor Display",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_tapestry_wall_hanging",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Tapestry Wall Hanging",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  300,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_starlight_snow_globe",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "silver",
+                                                    "name":  "Starlight Snow Globe",
+                                                    "description":  "",
+                                                    "animated":  true,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  62
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  600,
+                                                    "color":  15789284
+                                                },
+                                                {
+                                                    "id":  "castle_royal_vanity_mirror",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Royal Vanity Mirror",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                },
+                                                {
+                                                    "id":  "castle_pip_portrait",
+                                                    "biome":  "castle",
+                                                    "type":  "room",
+                                                    "slot":  "decor",
+                                                    "tier":  "bronze",
+                                                    "name":  "Pip Portrait",
+                                                    "description":  "",
+                                                    "animated":  false,
+                                                    "source":  "shop",
+                                                    "dustValue":  {
+                                                                      "duplicate":  20
+                                                                  },
+                                                    "upgradeFrom":  null,
+                                                    "shopPrice":  75,
+                                                    "color":  9067192
+                                                }
+                                            ]
+                              }
+               },
+    "pip":  {
+                "items":  [
+                              {
+                                  "id":  "pip_lantern",
+                                  "milestone":  "act1_start",
+                                  "biome":  "pip",
+                                  "type":  "room",
+                                  "slot":  "decor",
+                                  "tier":  "pip",
+                                  "name":  "Pip\u0027s Lantern",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_hairclip",
+                                  "milestone":  "act1_end",
+                                  "biome":  "pip",
+                                  "type":  "clothing",
+                                  "slot":  "hat",
+                                  "tier":  "pip",
+                                  "name":  "Fairy Wing Hairclip",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_satchel",
+                                  "milestone":  "waldo_appears",
+                                  "biome":  "pip",
+                                  "type":  "clothing",
+                                  "slot":  "shirt",
+                                  "tier":  "pip",
+                                  "name":  "Pip\u0027s Satchel Bag",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_map",
+                                  "milestone":  "act2_end",
+                                  "biome":  "pip",
+                                  "type":  "room",
+                                  "slot":  "decor",
+                                  "tier":  "pip",
+                                  "name":  "The Searching Map",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_spectacles",
+                                  "milestone":  "first_perfect",
+                                  "biome":  "pip",
+                                  "type":  "clothing",
+                                  "slot":  "hat",
+                                  "tier":  "pip",
+                                  "name":  "Pip\u0027s Spectacles",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_quill",
+                                  "milestone":  "pre_waldo_transform",
+                                  "biome":  "pip",
+                                  "type":  "room",
+                                  "slot":  "decor",
+                                  "tier":  "pip",
+                                  "name":  "Glowing Feather Quill",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_wingcloak",
+                                  "milestone":  "waldo_transforms",
+                                  "biome":  "pip",
+                                  "type":  "clothing",
+                                  "slot":  "dress",
+                                  "tier":  "pip",
+                                  "name":  "Pip\u0027s Wing Cloak",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_crest",
+                                  "milestone":  "castle_gates",
+                                  "biome":  "pip",
+                                  "type":  "room",
+                                  "slot":  "decor",
+                                  "tier":  "pip",
+                                  "name":  "The Kingdom Crest",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_bowtie",
+                                  "milestone":  "coronation",
+                                  "biome":  "pip",
+                                  "type":  "clothing",
+                                  "slot":  "shirt",
+                                  "tier":  "pip",
+                                  "name":  "Pip\u0027s Bow Tie",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              },
+                              {
+                                  "id":  "pip_portrait",
+                                  "milestone":  "game_complete",
+                                  "biome":  "pip",
+                                  "type":  "room",
+                                  "slot":  "decor",
+                                  "tier":  "pip",
+                                  "name":  "The Portrait of Two",
+                                  "animated":  false,
+                                  "source":  "milestone",
+                                  "color":  16773800,
+                                  "dustValue":  {
+                                                    "duplicate":  80
+                                                }
+                              }
+                          ]
+            }
 }

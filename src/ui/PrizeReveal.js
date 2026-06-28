@@ -26,7 +26,12 @@ export default function runPrizeReveal(scene, opts) {
     const item = pool.length ? pool[Phaser.Math.Between(0, pool.length - 1)] : null;
 
     const wardrobe = SaveSystem.get('wardrobe') || [];
-    const isDuplicate = item ? wardrobe.some((w) => w.id === item.id) : false;
+    // Gold prizes are 5-piece sets; everything else is a single item.
+    const isSet = !!(item && item.pieces);
+    const isDuplicate = item
+      ? (isSet ? item.pieces.every((p) => wardrobe.some((w) => w.id === p.id))
+        : wardrobe.some((w) => w.id === item.id))
+      : false;
 
     // Overlay.
     const layer = scene.add.container(0, 0).setDepth(6000);
@@ -61,7 +66,7 @@ export default function runPrizeReveal(scene, opts) {
       ig.fillStyle(TIER_COLOR[tier], 1); ig.fillRoundedRect(-34, -34, 68, 68, 12);
       ig.lineStyle(3, 0xffffff, 0.8); ig.strokeRoundedRect(-34, -34, 68, 68, 12);
       itemArt.add(ig);
-      const itemLabel = scene.add.text(0, 54, item ? item.label : 'Treasure', {
+      const itemLabel = scene.add.text(0, 54, item ? (item.name || item.label) : 'Treasure', {
         fontFamily: 'Georgia, serif', fontSize: '20px', color: '#fff6e0'
       }).setOrigin(0.5);
       itemArt.add(itemLabel);
@@ -89,8 +94,16 @@ export default function runPrizeReveal(scene, opts) {
           itemLabel.setText(`Already owned — +${dup.dustAwarded} dust!`);
           scene.tweens.add({ targets: itemArt, alpha: 0, scaleX: 1.6, scaleY: 1.6, duration: 700 });
         } else if (item) {
-          // Add to wardrobe.
-          wardrobe.push({ ...item });
+          // Add to wardrobe (normalised to the closet's item shape).
+          if (isSet) {
+            item.pieces.forEach((p) => {
+              if (!wardrobe.some((w) => w.id === p.id)) {
+                wardrobe.push({ id: p.id, slot: p.slot, label: p.name, biome: item.biome, gold: true, tier: 'gold', color: p.color });
+              }
+            });
+          } else {
+            wardrobe.push({ id: item.id, slot: item.slot, label: item.name || item.label, biome: item.biome, gold: item.tier === 'gold', tier: item.tier, color: item.color });
+          }
           SaveSystem.set('wardrobe', wardrobe);
         }
         this_presentDust(scene, layer, opts, score, () => {

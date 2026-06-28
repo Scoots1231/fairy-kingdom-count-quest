@@ -7,19 +7,16 @@
 import ActScene from './ActScene.js';
 import SaveSystem from '../systems/SaveSystem.js';
 import ProceduralGenerator from '../systems/ProceduralGenerator.js';
+import ItemDB from '../systems/ItemDB.js';
 import runPrizeReveal from '../ui/PrizeReveal.js';
 
 const W = 1280;
 const H = 720;
 
-const PRIZE_POOL = {
-  bronze: [{ id: 'hat_forest_acorn', slot: 'hat', label: 'Acorn Cap', biome: 'forest', gold: false, color: 0x8a6a3a }],
-  silver: [{ id: 'dress_forest_ivy', slot: 'dress', label: 'Ivy Gown', biome: 'forest', gold: false, color: 0x3f7e4f }],
-  gold: [{ id: 'dress_forest_gold', slot: 'dress', label: 'Golden Forest Gown', biome: 'forest', gold: true, color: 0xffd86b }]
-};
-
 export default class Act1 extends ActScene {
   constructor() { super('Act1', 'act1'); }
+
+  onCreated() { this.awardPip('act1_start'); } // Pip's Lantern
 
   // ---- Scenery (parallax tile layers, placeholder art) -------------------
   buildScenery() {
@@ -158,6 +155,7 @@ export default class Act1 extends ActScene {
         this.speak('Oh my... I had wondered if he would come. He has been waiting, you know. Horses are remarkably patient creatures.', this.pip.x, this.pip.y - 80, 3600);
         this.tweens.add({ targets: waldo, x: 720, duration: 500, yoyo: true, delay: 800 }); // nuzzle
         SaveSystem.set('progress.waldoForm', 'horse');
+        this.awardPip('waldo_appears'); // Pip's Satchel Bag
         this.time.delayedCall(3800, () => this.runReward());
       } });
     });
@@ -175,20 +173,14 @@ export default class Act1 extends ActScene {
       return Math.max(0, s);
     })();
 
-    runPrizeReveal(this, { actKey: 'act1', pip: this.pip, performanceScore: score, prizePool: PRIZE_POOL })
+    runPrizeReveal(this, { actKey: 'act1', pip: this.pip, performanceScore: score, prizePool: ItemDB.prizePool('forest') })
       .then(() => this.finishAct());
   }
 
   finishAct() {
     SaveSystem.set('progress.act1Complete', true);
     SaveSystem.set('progress.waldoForm', 'horse');
-
-    // Pip Collection Item 2 — Fairy Wing Hairclip.
-    const pc = SaveSystem.get('pipCollection') || [];
-    if (!pc.some((p) => p.id === 'pip_fairy_wing_hairclip')) {
-      pc.push({ id: 'pip_fairy_wing_hairclip', label: 'Fairy Wing Hairclip', biome: 'pip' });
-      SaveSystem.set('pipCollection', pc);
-    }
+    this.awardPip('act1_end'); // Fairy Wing Hairclip
 
     this.pip.express('excited');
     this.speak('Your adventure has been saved!', this.pip.x, this.pip.y - 80, 2200);
