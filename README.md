@@ -88,12 +88,20 @@ The full game loop is implemented and playable end to end:
 ### Procedural-art & audio note
 
 All **art is drawn procedurally with Phaser graphics** (backgrounds, characters,
-Pip, Waldo, items) — designed to be swapped for real sprites later. **Sound effects
-are synthesized live with the Web Audio API** (clicks, correct/wrong, fanfares,
-dust) so the game makes satisfying sounds with no asset files. **Voice lines and
-music are silent placeholders**, flagged in the console (`[VOICE NEEDED]` /
-`[MUSIC NEEDED]`) and catalogued in [VOICE_LINES.md](VOICE_LINES.md); drop the
-recordings into `assets/audio/` and flip `USE_AUDIO`/`USE_HOWLER` to enable them.
+Pip, Waldo, items) — designed to be swapped for real sprites later.
+
+Audio works today with **no asset files**:
+- **Sound effects** are synthesized live with the Web Audio API (clicks,
+  correct/wrong, prize fanfares, fairy dust).
+- **Pip's voice** is spoken aloud via the browser's built-in **Text-to-Speech**
+  (Web Speech API) — every line, synced with on-screen captions. Great for a
+  pre-reader. Works in Chrome/Edge; volume follows the SFX & Voice slider.
+- **Music** is still a silent placeholder, flagged in the console
+  (`[MUSIC NEEDED]`).
+
+To upgrade to recorded human voice/music later: drop files into `assets/audio/`
+(see [VOICE_LINES.md](VOICE_LINES.md)) and flip `USE_HOWLER` / `USE_AUDIO` —
+recordings take priority over TTS automatically, no other code changes.
 
 ## Deploy to GitHub Pages
 

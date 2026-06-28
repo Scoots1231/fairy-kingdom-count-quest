@@ -76,7 +76,9 @@ export default class HintSystem {
     }
 
     this.showBubble(line);
-    this.pip.say('pip_thinking');
+    // Speak the hint aloud (TTS) so a non-reading child hears it.
+    if (this._hintVoice) this._hintVoice.stop();
+    this._hintVoice = VoiceManager.speakText(this.scene, line);
     return line;
   }
 

@@ -1,18 +1,89 @@
 // src/systems/VoiceManager.js
 //
-// Placeholder voice + non-verbal sound system for Phase 2.
+// Pip's voice system + the single registry of every spoken line (see
+// VOICE_LINES.md for the manifest).
 //
-// All of Pip's lines are SILENT placeholders right now. This module is the
-// single registry of every line that needs recording (see VOICE_LINES.md for
-// the human-readable manifest). play() estimates a duration from the text,
-// logs a [VOICE NEEDED] flag the first time a line is used, then calls the
-// completion callback when the (silent) "playback" finishes — so the cinematic
-// and Pip.say() callbacks behave exactly as they will with real audio.
+// Playback priority:
+//   1. USE_HOWLER  — recorded voice files (best quality; none exist yet).
+//   2. USE_TTS     — the browser's built-in Text-to-Speech (Web Speech API),
+//                    so Pip actually SPEAKS every line aloud today with no asset
+//                    files. Routed through the voice-channel volume; stops cleanly
+//                    on skip; non-verbal sounds fall back to a timer.
+//   3. timer       — silent placeholder (when TTS is unavailable or muted).
 //
-// When real audio lands in assets/audio/sfx/pip/..., set USE_HOWLER = true and
-// drop the files at the `file` paths below; Howler will be used automatically.
+// onComplete fires when playback finishes either way, so callers behave
+// identically. A [VOICE NEEDED] flag is logged once per line for the eventual
+// recording pass. Captions are shown by Pip.say() regardless.
 
-const USE_HOWLER = false; // flip to true once real audio files exist
+import SaveSystem from './SaveSystem.js';
+import AudioManager from './AudioManager.js';
+
+const USE_HOWLER = false; // flip to true once real recorded audio files exist
+// Until recordings exist, Pip speaks via the browser's built-in Text-to-Speech
+// (Web Speech API) — real spoken voice, no asset files. Replaced automatically
+// by USE_HOWLER once recordings are added.
+const USE_TTS = true;
+
+let _ttsVoice = null;
+let _ttsResolved = false;
+function pickTtsVoice() {
+  if (_ttsResolved) return _ttsVoice;
+  if (!window.speechSynthesis) { _ttsResolved = true; return null; }
+  const voices = window.speechSynthesis.getVoices();
+  if (!voices || voices.length === 0) return null; // not loaded yet; try again later
+  const en = voices.filter((v) => /^en/i.test(v.lang));
+  // Prefer a warm, clear English voice; fall back to any English, then any.
+  const preferred = ['Google UK English Female', 'Microsoft Zira', 'Samantha', 'Google US English'];
+  for (const name of preferred) {
+    const m = en.find((v) => v.name.includes(name));
+    if (m) { _ttsVoice = m; _ttsResolved = true; return m; }
+  }
+  _ttsVoice = en[0] || voices[0] || null;
+  _ttsResolved = true;
+  return _ttsVoice;
+}
+if (window.speechSynthesis) {
+  // Voices often load asynchronously.
+  window.speechSynthesis.onvoiceschanged = () => { _ttsResolved = false; pickTtsVoice(); };
+}
+
+// Speak `text` aloud via the Web Speech API. Calls onComplete when finished
+// (or via a safety timer / silent fallback). Returns a handle with .stop()
+// that cancels speech WITHOUT firing onComplete (so skipping never auto-advances).
+function ttsSpeak(scene, text, fallbackMs, onComplete) {
+  const clean = (text || '').trim();
+  const speakable = clean && !clean.startsWith('('); // skip non-verbal "(...)" sounds
+  const voiceVol = AudioManager.channelVolume('voice');
+
+  if (USE_TTS && speakable && window.speechSynthesis && voiceVol > 0) {
+    try {
+      window.speechSynthesis.cancel(); // never overlap lines
+      const u = new SpeechSynthesisUtterance(clean.replace(/\.\.\./g, ', '));
+      u.rate = 0.95; u.pitch = 1.25; u.volume = voiceVol;
+      const v = pickTtsVoice(); if (v) u.voice = v;
+
+      let done = false;
+      const finish = () => { if (done) return; done = true; if (fb) fb.remove(false); if (onComplete) onComplete(); };
+      u.onend = finish;
+      u.onerror = finish;
+      // Safety net in case the engine never fires 'end' (some browsers).
+      const fb = scene.time.delayedCall(fallbackMs + 5000, finish);
+
+      window.speechSynthesis.speak(u);
+      return {
+        stop() {
+          u.onend = null; u.onerror = null;
+          if (fb) fb.remove(false);
+          if (window.speechSynthesis) window.speechSynthesis.cancel();
+        }
+      };
+    } catch (e) { /* fall through to the timed placeholder */ }
+  }
+
+  // Fallback (non-verbal, muted, or no TTS): wait the estimated duration.
+  const timer = scene.time.delayedCall(fallbackMs, () => { if (onComplete) onComplete(); });
+  return { stop() { if (timer) timer.remove(false); } };
+}
 
 // audioKey -> { text, file, needsRecording }
 // `text` is the spoken line (used for duration + on-screen captions).
@@ -116,11 +187,16 @@ const VoiceManager = {
       return { stop() { howl.stop(); } };
     }
 
-    // Silent placeholder: wait the estimated duration, then complete.
-    const timer = scene.time.delayedCall(estimateDurationMs(key), () => {
-      if (onComplete) onComplete();
-    });
-    return { stop() { if (timer) timer.remove(false); } };
+    // Spoken voice via Text-to-Speech (registry line, name substituted).
+    const text = this.caption(key, SaveSystem.get('playerName') || 'Princess');
+    return ttsSpeak(scene, text, estimateDurationMs(key), onComplete);
+  },
+
+  // Speak an arbitrary string aloud (raw bubble text: commentary, teaching,
+  // bee tips, hints, story beats). Returns a handle with .stop().
+  speakText(scene, text, onComplete) {
+    const est = Phaser.Math.Clamp((text || '').length * 55, 900, 9000);
+    return ttsSpeak(scene, text, est, onComplete);
   }
 };
 

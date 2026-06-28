@@ -19,6 +19,7 @@ import Waldo from '../characters/Waldo.js';
 import PipCollection from '../systems/PipCollection.js';
 import MusicManager from '../systems/MusicManager.js';
 import AudioManager from '../systems/AudioManager.js';
+import VoiceManager from '../systems/VoiceManager.js';
 
 const W = 1280;
 const H = 720;
@@ -248,7 +249,9 @@ export default class ActScene extends Phaser.Scene {
     c.add([bg, t]);
     this._bubble = c;
     this.pip.express('idle');
-    this.pip.say('pip_thinking');
+    // Speak the line aloud (TTS) — commentary, teaching, bee tips, story beats.
+    if (this._speakHandle) this._speakHandle.stop();
+    this._speakHandle = VoiceManager.speakText(this, text);
     this.time.delayedCall(holdMs, () => { if (this._bubble === c) { c.destroy(); this._bubble = null; } });
   }
 
