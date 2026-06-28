@@ -1,0 +1,11 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+.vscode/
+.idea/
+
+# Player save files (these live on the thumb drive, not in the repo)
+*save*.json
+!assets/data/items.json

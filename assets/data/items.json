@@ -1,0 +1,10 @@
+{
+  "biomes": {
+    "forest": { "items": [] },
+    "swamp": { "items": [] },
+    "fields": { "items": [] },
+    "castle": { "items": [] }
+  },
+  "pip": { "items": [] },
+  "shop": { "items": [] }
+}
