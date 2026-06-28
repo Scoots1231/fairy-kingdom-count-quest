@@ -12,6 +12,7 @@ import Act3 from './scenes/Act3.js';
 import Act4 from './scenes/Act4.js';
 import PrincessRoom from './scenes/PrincessRoom.js';
 import Shop from './scenes/Shop.js';
+import Closet from './ui/Wardrobe.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -19,7 +20,7 @@ const config = {
   width: 1280,
   height: 720,
   backgroundColor: '#1a0a2e',
-  scene: [MainMenu, Cinematic, Customization, Act1, Act2, Act3, Act4, PrincessRoom, Shop],
+  scene: [MainMenu, Cinematic, Customization, Act1, Act2, Act3, Act4, PrincessRoom, Shop, Closet],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH
