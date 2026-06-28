@@ -29,11 +29,12 @@ export default class PrincessPreview extends Phaser.GameObjects.Container {
     this.biome = null;
     this.showSilhouettes = !!opts.showSilhouettes;
 
+    this.isStatic = !!opts.static; // act scenes: no mirror platform / turning
+
     // Backdrop (biome tint) behind the figure.
     this.backdrop = scene.add.graphics();
 
     // The figure lives in its own container so it can "turn" on the platform.
-    this.platform = scene.add.ellipse(0, 150 * this.unit, 150 * this.unit, 34 * this.unit, 0xcdbce8, 0.4);
     this.figure = scene.add.container(0, 0);
     this.gfx = scene.add.graphics();
     this.figure.add(this.gfx);
@@ -41,10 +42,14 @@ export default class PrincessPreview extends Phaser.GameObjects.Container {
     // Empty-slot silhouettes (closet only).
     this.slotGfx = scene.add.graphics();
 
-    this.add([this.backdrop, this.platform, this.figure, this.slotGfx]);
-
-    // Slow turning illusion: gentle rotation + scaleX oscillation (~15°).
-    scene.tweens.add({ targets: this.figure, rotation: 0.06, scaleX: 0.9, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    if (this.isStatic) {
+      this.add([this.backdrop, this.figure, this.slotGfx]);
+    } else {
+      // Mirror platform + slow turning illusion (~15°).
+      this.platform = scene.add.ellipse(0, 150 * this.unit, 150 * this.unit, 34 * this.unit, 0xcdbce8, 0.4);
+      this.add([this.backdrop, this.platform, this.figure, this.slotGfx]);
+      scene.tweens.add({ targets: this.figure, rotation: 0.06, scaleX: 0.9, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    }
 
     this._draw();
     scene.events.once('shutdown', () => this.destroy());
