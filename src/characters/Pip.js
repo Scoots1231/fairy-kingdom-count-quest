@@ -10,6 +10,7 @@
 // won't change.
 
 import VoiceManager from '../systems/VoiceManager.js';
+import SaveSystem from '../systems/SaveSystem.js';
 
 const EXPRESSIONS = ['idle', 'fly', 'excited', 'concerned', 'laugh', 'tearful', 'thinking', 'bow', 'spin'];
 
@@ -157,16 +158,25 @@ export default class Pip extends Phaser.GameObjects.Container {
   }
 
   // Queue a voiced line. onComplete fires when (placeholder) playback ends.
-  say(audioKey, onComplete) {
-    this._voiceQueue.push({ audioKey, onComplete });
+  // Every verbal line is captioned on-screen so the words are always readable
+  // (the voice audio is silent placeholder for now). Pass { caption:false } for
+  // scenes that render their own caption (e.g. the cinematic's caption box).
+  say(audioKey, onComplete, opts = {}) {
+    this._voiceQueue.push({ audioKey, onComplete, opts });
     this._drainVoice();
     return this;
   }
 
   _drainVoice() {
     if (this._speaking || this._voiceQueue.length === 0) return;
-    const { audioKey, onComplete } = this._voiceQueue.shift();
+    const { audioKey, onComplete, opts } = this._voiceQueue.shift();
     this._speaking = true;
+
+    // Caption the line (skip non-verbal sounds like "(warm Mmm!)").
+    const name = SaveSystem.get('playerName') || 'Princess';
+    const line = VoiceManager.caption(audioKey, name);
+    const showCap = !(opts && opts.caption === false) && line && !line.startsWith('(');
+    if (showCap) this.showCaption(line);
 
     // Talking mouth flutter.
     const talk = this.scene.tweens.add({
@@ -178,9 +188,31 @@ export default class Pip extends Phaser.GameObjects.Container {
       this.mouth.setScale(1);
       this._speaking = false;
       this._currentVoice = null;
+      this.hideCaption();
       if (onComplete) onComplete();
       this._drainVoice();
     });
+  }
+
+  // ---- Captions -----------------------------------------------------------
+  showCaption(text) {
+    this.hideCaption();
+    const sx = Phaser.Math.Clamp(this.x, 220, 1060);
+    const sy = Phaser.Math.Clamp(this.y - 70, 60, 650);
+    this._caption = this.scene.add.container(sx, sy).setDepth(4000);
+    const t = this.scene.add.text(0, 0, text, {
+      fontFamily: 'Georgia, serif', fontSize: '19px', color: '#3a1f55',
+      align: 'center', wordWrap: { width: 340 }
+    }).setOrigin(0.5);
+    const b = t.getBounds();
+    const bg = this.scene.add.graphics();
+    bg.fillStyle(0xfff6e0, 0.96); bg.fillRoundedRect(-b.width / 2 - 16, -b.height / 2 - 12, b.width + 32, b.height + 24, 14);
+    bg.lineStyle(3, 0xffd86b, 1); bg.strokeRoundedRect(-b.width / 2 - 16, -b.height / 2 - 12, b.width + 32, b.height + 24, 14);
+    this._caption.add([bg, t]);
+  }
+
+  hideCaption() {
+    if (this._caption) { this._caption.destroy(); this._caption = null; }
   }
 
   // Stop any current/queued speech immediately (e.g. when skipping).
@@ -189,6 +221,7 @@ export default class Pip extends Phaser.GameObjects.Container {
     if (this._currentVoice) { this._currentVoice.stop(); this._currentVoice = null; }
     this._speaking = false;
     this.mouth.setScale(1);
+    this.hideCaption();
     return this;
   }
 
@@ -267,6 +300,7 @@ export default class Pip extends Phaser.GameObjects.Container {
     if (this._tiltTimer) this._tiltTimer.remove();
     if (this._glassesTimer) this._glassesTimer.remove();
     if (this._currentVoice) this._currentVoice.stop();
+    this.hideCaption();
     super.destroy(fromScene);
   }
 }

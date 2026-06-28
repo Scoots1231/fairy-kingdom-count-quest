@@ -120,10 +120,11 @@ export default class Cinematic extends Phaser.Scene {
     this.pip.express(i === 3 ? 'fly' : 'idle');
 
     // Voiced narration; when it ends, auto-advance (unless this panel waits for input).
+    // caption:false — the cinematic shows its own storybook caption box.
     this.pip.say(panel.key, () => {
       if (panel.nameEntry) this.openNameEntry();
       else this.scheduleAutoAdvance(i);
-    });
+    }, { caption: false });
 
     // Safety max-timeout fallback.
     if (this._autoTimer) this._autoTimer.remove();
@@ -252,7 +253,7 @@ export default class Cinematic extends Phaser.Scene {
     // Pip repeats the name warmly, then advance to Panel 11.
     this.setCaption(VoiceManager.caption('cin_p10_name', name));
     this.pip.express('excited');
-    this.pip.say('cin_p10_name', () => this.scheduleAutoAdvance(9));
+    this.pip.say('cin_p10_name', () => this.scheduleAutoAdvance(9), { caption: false });
   }
 
   // ---- Placeholder layered art -------------------------------------------
