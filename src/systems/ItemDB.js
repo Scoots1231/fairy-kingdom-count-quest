@@ -26,9 +26,41 @@ const ItemDB = {
     return Object.values(this.data.biomes).flatMap((b) => b.items);
   },
 
+  // Lazy id -> item index. Gold "set" items also index each of their 5 pieces
+  // (so an equipped gold piece's itemId resolves to its slot/colour).
+  _buildIndex() {
+    const idx = {};
+    this.allBiomeItems().forEach((it) => {
+      idx[it.id] = it;
+      if (it.pieces) it.pieces.forEach((p) => {
+        idx[p.id] = { id: p.id, slot: p.slot, name: p.name, tier: 'gold', biome: it.biome, color: p.color, gold: true };
+      });
+    });
+    this.pipItems().forEach((it) => { idx[it.id] = it; });
+    this._index = idx;
+  },
+
   byId(id) {
-    return this.allBiomeItems().find((it) => it.id === id)
-      || this.pipItems().find((it) => it.id === id) || null;
+    if (!this.data) return null;
+    if (!this._index) this._buildIndex();
+    return this._index[id] || null;
+  },
+
+  // Normalised display object for an itemId, used by the closet / mirror / shop
+  // to render an item that the save now stores only as an id.
+  display(itemId) {
+    if (!itemId) return null;
+    const it = this.byId(itemId);
+    if (!it) return { id: itemId, slot: null, label: itemId, color: 0x888888, gold: false, tier: 'bronze', biome: null };
+    return {
+      id: it.id,
+      slot: it.slot,
+      label: it.name || it.label || it.id,
+      color: it.color != null ? it.color : 0x888888,
+      gold: it.gold === true || it.tier === 'gold',
+      tier: it.tier,
+      biome: it.biome
+    };
   },
 
   biomeItems(biome) {

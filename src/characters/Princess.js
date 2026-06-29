@@ -8,6 +8,8 @@
 // then redraw(). This is the Phase-2 placeholder render (flat shapes); when real
 // art exists, replace _draw() — the data contract stays the same.
 
+import ItemDB from '../systems/ItemDB.js';
+
 const HAIR_COLORS = { golden: 0xe9c869, brown: 0x7a4a25, black: 0x2b2430, auburn: 0xa6391f };
 const EYE_COLORS = { blue: 0x4a90d9, green: 0x3f8f4f, brown: 0x8a5a2b, violet: 0x9b59b6 };
 const BODY = {
@@ -64,7 +66,9 @@ export default class PrincessPreview extends Phaser.GameObjects.Container {
   _outfitColor(piece, fallback) {
     const v = this.outfit[piece];
     if (!v) return fallback;
-    if (typeof v === 'object' && v.color != null) return v.color;
+    // currentOutfit stores an itemId string — resolve its colour via ItemDB.
+    if (typeof v === 'string') { const d = ItemDB.display(v); return d && d.color != null ? d.color : fallback; }
+    if (typeof v === 'object' && v.color != null) return v.color; // legacy descriptor
     return fallback;
   }
   _hasOutfit(piece) {

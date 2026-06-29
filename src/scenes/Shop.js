@@ -96,13 +96,15 @@ export default class Shop extends Phaser.Scene {
     if (idx === -1) return false; // workshop always open (post Act 1)
     return !SaveSystem.get(`progress.act${idx + 1}Complete`);
   }
-  owns(id) { return (SaveSystem.get('wardrobe') || []).some((w) => w.id === id) || (SaveSystem.get('roomDecorations') || []).some((d) => d.id === id); }
+  owns(id) { return SaveSystem.ownsWardrobeItem(id) || SaveSystem.ownsRoomDecoration(id); }
 
   currentItems() {
     const tab = this.tabKey();
     if (tab === 'workshop') {
-      // Owned, non-gold clothing eligible for an upgrade.
-      return (SaveSystem.get('wardrobe') || []).filter((w) => w.tier === 'bronze' || w.tier === 'silver');
+      // Owned, non-gold clothing eligible for an upgrade (resolved for display).
+      return (SaveSystem.get('wardrobe') || [])
+        .filter((w) => w.tier === 'bronze' || w.tier === 'silver')
+        .map((w) => { const d = ItemDB.display(w.itemId); return { id: w.itemId, itemId: w.itemId, name: d.label, color: d.color, tier: w.tier, slot: d.slot, type: 'clothing' }; });
     }
     return ItemDB.shopItems(tab);
   }
@@ -175,15 +177,12 @@ export default class Shop extends Phaser.Scene {
   purchase(item) {
     if (this.owns(item.id)) { this.benny('owned'); return; }
     if (!FairyDustManager.spend(item.shopPrice)) { this.benny('poor'); return; }
-    if (item.type === 'clothing') {
-      const wardrobe = SaveSystem.get('wardrobe') || [];
-      wardrobe.push({ id: item.id, slot: item.slot, label: item.name, biome: item.biome, gold: false, tier: item.tier, color: item.color });
-      SaveSystem.set('wardrobe', wardrobe);
-    } else {
-      const decor = SaveSystem.get('roomDecorations') || [];
-      decor.push({ id: item.id, label: item.name, type: 'floor', color: item.color, x: 700, y: 600 });
-      SaveSystem.set('roomDecorations', decor);
-    }
+    if (item.type === 'clothing') SaveSystem.addToWardrobe(item.id, item.tier, 'shop', item.biome);
+    else SaveSystem.addRoomDecoration(item.id, item.tier, 'shop', item.biome);
+    // Transaction record (schema shopPurchases).
+    const purchases = SaveSystem.get('shopPurchases') || [];
+    purchases.push({ itemId: item.id, dustSpent: item.shopPrice, date: new Date().toISOString() });
+    SaveSystem.set('shopPurchases', purchases);
     this.wandCursor.setState('correct');
     this.benny('buy');
     this.renderTab();
@@ -193,10 +192,10 @@ export default class Shop extends Phaser.Scene {
     const cost = UPGRADE_COST[item.tier];
     if (!FairyDustManager.spend(cost)) { this.benny('poor'); return; }
     const wardrobe = SaveSystem.get('wardrobe') || [];
-    const w = wardrobe.find((x) => x.id === item.id);
+    const w = wardrobe.find((x) => x.itemId === item.itemId && x.tier === item.tier);
     if (w) {
-      if (w.tier === 'bronze') { w.tier = 'silver'; }
-      else if (w.tier === 'silver') { w.tier = 'gold'; w.gold = true; w.color = 0xffd86b; }
+      w.tier = (w.tier === 'bronze') ? 'silver' : 'gold';
+      w.source = 'upgrade';
       SaveSystem.set('wardrobe', wardrobe);
     }
     this.wandCursor.setState('correct');

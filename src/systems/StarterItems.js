@@ -1,33 +1,36 @@
 // src/systems/StarterItems.js
 //
-// PHASE 2 PLACEHOLDER WARDROBE.
+// DEMO SEED (development convenience).
 //
-// The real game grants wardrobe items as rewards during the Acts (Phase 3+).
-// Until those exist, this small demo set is seeded into save.wardrobe the first
-// time the closet is opened, so the closet UI (expand/collapse, equip, live
-// mirror update, Pip reactions, completion tracker) is fully testable now.
-// Replace/remove this seeding once Act rewards are implemented.
-//
-// Item shape: { id, slot, label, biome, gold, color }
-//   slot:  'hat' | 'dress' | 'shirt' | 'pants' | 'shoes'  (crown comes from Act 4)
-//   biome: 'forest' | 'swamp' | 'fields' | 'castle' | 'pip'
+// The real game grants items as Act rewards / shop purchases. To keep the
+// closet and room immediately demonstrable on a fresh save, this seeds a small
+// set of REAL items.json ids (resolved through ItemDB) using the schema save
+// API. Remove this call once you want a strictly bare new-game closet/room.
 
-export const STARTER_ITEMS = [
-  { id: 'hat_forest_leaf', slot: 'hat', label: 'Leaf Cap', biome: 'forest', gold: false, color: 0x4f8f3f },
-  { id: 'hat_castle_gold', slot: 'hat', label: 'Gold Tiara-Hat', biome: 'castle', gold: true, color: 0xffd86b },
-  { id: 'dress_forest_green', slot: 'dress', label: 'Forest Gown', biome: 'forest', gold: false, color: 0x3f8f5f },
-  { id: 'dress_fields_rose', slot: 'dress', label: 'Rose Gown', biome: 'fields', gold: false, color: 0xe48fb8 },
-  { id: 'shirt_swamp_teal', slot: 'shirt', label: 'Teal Tunic', biome: 'swamp', gold: false, color: 0x4f9f9f },
-  { id: 'pants_forest_brown', slot: 'pants', label: 'Forest Leggings', biome: 'forest', gold: false, color: 0x7a5a35 },
-  { id: 'shoes_fields_pink', slot: 'shoes', label: 'Petal Slippers', biome: 'fields', gold: false, color: 0xe48fb8 },
-  { id: 'shoes_castle_gold', slot: 'shoes', label: 'Gold Slippers', biome: 'castle', gold: true, color: 0xffd86b }
+import ItemDB from './ItemDB.js';
+
+const STARTER_WARDROBE = [
+  'forest_mushroom_cap_hat',
+  'forest_moonlight_silver_dress',
+  'forest_silver_moonbeam_shirt',
+  'forest_deep_green_forest_leggings_shop',
+  'forest_vine_wrapped_ankle_boots'
 ];
+const STARTER_DECOR = ['forest_firefly_lantern', 'forest_glowing_mushroom_cluster'];
 
-// Seed the demo wardrobe once. Returns true if anything was added.
+// Seed the demo items once (only on a brand-new, empty wardrobe). Needs the
+// item database loaded so tiers/biomes resolve; otherwise it no-ops.
 export function seedStarterWardrobe(SaveSystem) {
-  if (!SaveSystem.hasSaveData()) return false;
-  const wardrobe = SaveSystem.get('wardrobe') || [];
-  if (wardrobe.length > 0) return false; // already has items
-  SaveSystem.set('wardrobe', STARTER_ITEMS.map((it) => ({ ...it })));
+  if (!SaveSystem.hasSaveData() || !ItemDB.ready()) return false;
+  if ((SaveSystem.get('wardrobe') || []).length > 0) return false;
+
+  STARTER_WARDROBE.forEach((id) => {
+    const d = ItemDB.display(id);
+    SaveSystem.addToWardrobe(id, d.tier || 'bronze', 'prize', d.biome || 'forest');
+  });
+  STARTER_DECOR.forEach((id) => {
+    const d = ItemDB.display(id);
+    SaveSystem.addRoomDecoration(id, d.tier || 'bronze', 'prize', d.biome || 'forest');
+  });
   return true;
 }

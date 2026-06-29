@@ -161,6 +161,49 @@ class SaveSystem {
     obj[last] = value;
   }
 
+  // ---- Item helpers (schema entry shapes; always use these, never push) ----
+
+  // wardrobe entry: { itemId, tier, source, biome, dateEarned }
+  addToWardrobe(itemId, tier, source, biome) {
+    if (this.ownsWardrobeItem(itemId, tier)) return { isDuplicate: true };
+    this.saveData.wardrobe.push({ itemId, tier, source, biome, dateEarned: new Date().toISOString() });
+    return { isDuplicate: false };
+  }
+
+  ownsWardrobeItem(itemId, tier) {
+    return (this.saveData?.wardrobe || []).some((it) => it.itemId === itemId && (tier == null || it.tier === tier));
+  }
+
+  // roomDecorations entry: { itemId, tier, source, biome, dateEarned }
+  addRoomDecoration(itemId, tier, source, biome) {
+    if (this.ownsRoomDecoration(itemId, tier)) return { isDuplicate: true };
+    this.saveData.roomDecorations.push({ itemId, tier, source, biome, dateEarned: new Date().toISOString() });
+    return { isDuplicate: false };
+  }
+
+  ownsRoomDecoration(itemId, tier) {
+    return (this.saveData?.roomDecorations || []).some((it) => it.itemId === itemId && (tier == null || it.tier === tier));
+  }
+
+  // pipCollection entry: { itemId, milestone, dateReceived }
+  addPipItem(itemId, milestone) {
+    if ((this.saveData?.pipCollection || []).some((it) => it.itemId === itemId)) return false;
+    this.saveData.pipCollection.push({ itemId, milestone, dateReceived: new Date().toISOString() });
+    return true;
+  }
+
+  // Fairy dust — current + lifetime. Lifetime never decreases; balance never < 0.
+  addFairyDust(amount) {
+    this.saveData.fairyDust = Math.max(0, (this.saveData.fairyDust || 0) + amount);
+    this.saveData.fairyDustLifetime = (this.saveData.fairyDustLifetime || 0) + Math.max(0, amount);
+  }
+
+  spendFairyDust(amount) {
+    if ((this.saveData.fairyDust || 0) < amount) return false;
+    this.saveData.fairyDust -= amount;
+    return true;
+  }
+
   hasSaveData() {
     return this.saveData !== null;
   }

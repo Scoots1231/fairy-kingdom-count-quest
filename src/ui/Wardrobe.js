@@ -8,6 +8,7 @@
 // currentOutfit. Pip reacts to each change. Full mouse + keyboard support.
 
 import SaveSystem from '../systems/SaveSystem.js';
+import ItemDB from '../systems/ItemDB.js';
 import Cursor from '../ui/Cursor.js';
 import Pip from '../characters/Pip.js';
 import PrincessPreview from '../characters/Princess.js';
@@ -30,6 +31,12 @@ export default class Wardrobe extends Phaser.Scene {
   create() {
     this.cameras.main.setBackgroundColor('#1a120c');
     this.wardrobe = SaveSystem.get('wardrobe') || [];
+    // Resolve each {itemId,tier,source,biome} entry to its display fields.
+    this.items = this.wardrobe.map((e) => {
+      const d = ItemDB.display(e.itemId);
+      const gold = d.gold || e.tier === 'gold';
+      return { itemId: e.itemId, slot: d.slot, label: d.label, color: gold ? 0xffd86b : d.color, gold, tier: e.tier, biome: e.biome || d.biome };
+    });
     this.outfit = SaveSystem.get('currentOutfit') || {};
     this.crownUnlocked = !!SaveSystem.get('progress.crownUnlocked');
 
@@ -109,13 +116,20 @@ export default class Wardrobe extends Phaser.Scene {
   // ---- Data helpers -------------------------------------------------------
 
   itemsFor(section) {
-    return this.wardrobe.filter((it) => section.slots.includes(it.slot));
+    return this.items.filter((it) => section.slots.includes(it.slot));
+  }
+
+  // Resolve an equipped itemId (or null) to its display object.
+  equippedDisplay(slot) {
+    const id = this.outfit[slot];
+    return id ? ItemDB.display(id) : null;
   }
 
   dominantBiome() {
     const counts = {};
-    Object.values(this.outfit).forEach((it) => {
-      if (it && it.biome) counts[it.biome] = (counts[it.biome] || 0) + 1;
+    Object.keys(this.outfit).forEach((slot) => {
+      const d = this.equippedDisplay(slot);
+      if (d && d.biome) counts[d.biome] = (counts[d.biome] || 0) + 1;
     });
     let best = null; let n = 0;
     Object.entries(counts).forEach(([b, c]) => { if (c > n) { n = c; best = b; } });
@@ -123,15 +137,16 @@ export default class Wardrobe extends Phaser.Scene {
   }
 
   equippedBiomes() {
-    return new Set(Object.values(this.outfit).filter((it) => it && it.biome).map((it) => it.biome));
+    const set = new Set();
+    Object.keys(this.outfit).forEach((slot) => { const d = this.equippedDisplay(slot); if (d && d.biome) set.add(d.biome); });
+    return set;
   }
 
   isFullGoldSet() {
     const slots = ['hat', 'dress', 'shirt', 'pants', 'shoes'];
-    const items = slots.map((s) => this.outfit[s]);
-    if (items.some((it) => !it || !it.gold)) return false;
-    const biomes = new Set(items.map((it) => it.biome));
-    return biomes.size === 1;
+    const ds = slots.map((s) => this.equippedDisplay(s));
+    if (ds.some((d) => !d || !d.gold)) return false;
+    return new Set(ds.map((d) => d.biome)).size === 1;
   }
 
   // ---- Interaction --------------------------------------------------------
@@ -153,7 +168,8 @@ export default class Wardrobe extends Phaser.Scene {
     if (items.length === 0) return;
     const item = items[Phaser.Math.Clamp(this.itemIndex, 0, items.length - 1)];
 
-    this.outfit[item.slot] = { ...item };
+    // currentOutfit stores the itemId string (schema).
+    this.outfit[item.slot] = item.itemId;
     SaveSystem.set('currentOutfit', this.outfit);
     this.preview.setOutfit(this.outfit).setBiome(this.dominantBiome()).redraw();
     this.wandCursor.setState('correct');
@@ -252,7 +268,7 @@ export default class Wardrobe extends Phaser.Scene {
           const col = j % 3; const row = Math.floor(j / 3);
           const x = col * 150; const y = row * 110 + 10;
           const chip = this.add.container(x, y);
-          const equipped = this.outfit[item.slot] && this.outfit[item.slot].id === item.id;
+          const equipped = this.outfit[item.slot] === item.itemId;
           const focused = this.itemIndex === j;
           const bg = this.add.graphics();
           bg.fillStyle(item.color, 1); bg.fillRoundedRect(0, 0, 132, 86, 10);
@@ -274,11 +290,11 @@ export default class Wardrobe extends Phaser.Scene {
       }
     }
 
-    // Completion tracker.
+    // Completion tracker (uses the resolved items).
     const parts = BIOMES.map((b) => {
-      const owned = this.wardrobe.filter((it) => it.biome === b).length;
+      const owned = this.items.filter((it) => it.biome === b).length;
       const goldComplete = ['hat', 'dress', 'shirt', 'pants', 'shoes'].every((s) =>
-        this.wardrobe.some((it) => it.slot === s && it.biome === b && it.gold));
+        this.items.some((it) => it.slot === s && it.biome === b && it.gold));
       return `${this.biomeIcon(b)} ${owned}/10${goldComplete ? ' ⭐' : ''}`;
     });
     const pipCount = (SaveSystem.get('pipCollection') || []).length;

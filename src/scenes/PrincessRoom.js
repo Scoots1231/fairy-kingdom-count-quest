@@ -11,6 +11,7 @@
 // "Save & Rest" performs the thumb-drive autosave with Pip's flag wave.
 
 import SaveSystem from '../systems/SaveSystem.js';
+import ItemDB from '../systems/ItemDB.js';
 import Cursor from '../ui/Cursor.js';
 import Pip from '../characters/Pip.js';
 import PrincessPreview from '../characters/Princess.js';
@@ -101,37 +102,40 @@ export default class PrincessRoom extends Phaser.Scene {
   // ---- Decorations (drag + keyboard place) --------------------------------
 
   buildDecorations() {
-    let decor = SaveSystem.get('roomDecorations');
-    if (!decor || decor.length === 0) {
-      decor = DEFAULT_DECOR.map((d) => ({ ...d }));
-      SaveSystem.set('roomDecorations', decor);
-    }
-    this.decorData = decor;
+    // Ownership (roomDecorations: {itemId,tier,...}) is separate from positions
+    // (roomLayout: [{itemId,x,y,layer}]) per the save schema.
+    const owned = SaveSystem.get('roomDecorations') || [];
+    this.layout = SaveSystem.get('roomLayout') || [];
     this.decorObjs = [];
 
-    decor.forEach((d) => {
-      const c = this.add.container(d.x, d.y);
+    owned.forEach((entry, i) => {
+      const disp = ItemDB.display(entry.itemId);
+      let pos = this.layout.find((l) => l.itemId === entry.itemId);
+      if (!pos) { pos = { itemId: entry.itemId, x: 680 + (i % 3) * 130, y: FLOOR_SNAP, layer: 'floor' }; this.layout.push(pos); }
+      const data = { itemId: entry.itemId, label: disp.label, color: disp.color, pos };
+
+      const c = this.add.container(pos.x, pos.y);
       const g = this.add.graphics();
-      this.drawDecor(g, d);
-      const label = this.add.text(0, 28, d.label, { fontFamily: 'Georgia, serif', fontSize: '13px', color: '#fff6e0' }).setOrigin(0.5);
+      this.drawDecor(g, data, pos.layer);
+      const label = this.add.text(0, 28, disp.label, { fontFamily: 'Georgia, serif', fontSize: '12px', color: '#fff6e0', align: 'center', wordWrap: { width: 90 } }).setOrigin(0.5);
       const hit = this.add.rectangle(0, 0, 80, 64, 0xffffff, 0.001).setInteractive({ useHandCursor: false, draggable: true });
       c.add([g, label, hit]);
-      c.setDepth(d.type === 'wall' ? 5 : 20);
+      c.setDepth(pos.layer === 'wall' ? 5 : 20);
 
-      hit.on('pointerover', () => { this.focusIndex = this.focusables.indexOf(this._decorFocus(d)); this.refreshFocus(); });
-      hit.on('pointerdown', () => this.clickDecor(d, c));
+      hit.on('pointerover', () => { this.focusIndex = this.focusables.indexOf(this._decorFocus(data)); this.refreshFocus(); });
+      hit.on('pointerdown', () => this.clickDecor(data, c));
       hit.on('drag', (p, dragX, dragY) => { c.x = dragX; c.y = dragY; });
-      hit.on('dragend', () => this.snapDecor(d, c));
+      hit.on('dragend', () => this.snapDecor(data, c));
 
-      this.decorObjs.push({ data: d, container: c });
+      this.decorObjs.push({ data, container: c });
     });
+    SaveSystem.set('roomLayout', this.layout);
   }
 
-  drawDecor(g, d) {
+  drawDecor(g, d, layer) {
     g.clear();
     g.fillStyle(d.color, 1);
-    if (d.type === 'wall') g.fillRoundedRect(-30, -22, 60, 44, 6);
-    else if (d.id === 'rug') g.fillEllipse(0, 10, 120, 36);
+    if (layer === 'wall') g.fillRoundedRect(-30, -22, 60, 44, 6);
     else g.fillRoundedRect(-16, -28, 32, 56, 8);
     g.lineStyle(2, 0x000000, 0.25);
     g.strokeRoundedRect(-30, -28, 60, 56, 8);
@@ -141,13 +145,14 @@ export default class PrincessRoom extends Phaser.Scene {
     // Unique reaction (placeholder): a little bounce + sparkle.
     this.tweens.add({ targets: c, scaleX: 1.12, scaleY: 0.9, duration: 120, yoyo: true });
     this.wandCursor.setState('click');
+    AudioManager.sfx('hover');
   }
 
   snapDecor(d, c) {
-    if (d.type === 'wall') { c.y = WALL_SNAP; }
+    if (d.pos.layer === 'wall') { c.y = WALL_SNAP; }
     else { c.y = Math.max(FLOOR_Y + 40, Math.min(H - 40, c.y)); }
     c.x = Phaser.Math.Clamp(c.x, 40, W - 40);
-    d.x = c.x; d.y = c.y;
+    d.pos.x = c.x; d.pos.y = c.y;
   }
 
   _decorFocus(d) {
@@ -286,8 +291,8 @@ export default class PrincessRoom extends Phaser.Scene {
   persistLayout() {
     if (this._persisted) return;
     this._persisted = true;
-    // Sync decoration positions back into the save (in-memory).
-    if (this.decorData) SaveSystem.set('roomDecorations', this.decorData);
+    // Decoration positions live in roomLayout (ownership stays in roomDecorations).
+    if (this.layout) SaveSystem.set('roomLayout', this.layout);
   }
 
   // ---- Pip speech bubble ---------------------------------------------------

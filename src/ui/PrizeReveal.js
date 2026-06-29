@@ -34,12 +34,11 @@ export default function runPrizeReveal(scene, opts) {
     const pool = (opts.prizePool && opts.prizePool[tier]) || [];
     const item = pool.length ? pool[Phaser.Math.Between(0, pool.length - 1)] : null;
 
-    const wardrobe = SaveSystem.get('wardrobe') || [];
     // Gold prizes are 5-piece sets; everything else is a single item.
     const isSet = !!(item && item.pieces);
     const isDuplicate = item
-      ? (isSet ? item.pieces.every((p) => wardrobe.some((w) => w.id === p.id))
-        : wardrobe.some((w) => w.id === item.id))
+      ? (isSet ? item.pieces.every((p) => SaveSystem.ownsWardrobeItem(p.id))
+        : (item.type === 'room' ? SaveSystem.ownsRoomDecoration(item.id) : SaveSystem.ownsWardrobeItem(item.id)))
       : false;
 
     // Overlay.
@@ -112,17 +111,14 @@ export default function runPrizeReveal(scene, opts) {
           itemLabel.setText(`Already owned — +${dup.dustAwarded} dust!`);
           scene.tweens.add({ targets: itemArt, alpha: 0, scaleX: 1.6, scaleY: 1.6, duration: 700 });
         } else if (item) {
-          // Add to wardrobe (normalised to the closet's item shape).
+          // Add via the schema API (itemId entries; duplicate-safe).
           if (isSet) {
-            item.pieces.forEach((p) => {
-              if (!wardrobe.some((w) => w.id === p.id)) {
-                wardrobe.push({ id: p.id, slot: p.slot, label: p.name, biome: item.biome, gold: true, tier: 'gold', color: p.color });
-              }
-            });
+            item.pieces.forEach((p) => SaveSystem.addToWardrobe(p.id, 'gold', 'prize', item.biome));
+          } else if (item.type === 'room') {
+            SaveSystem.addRoomDecoration(item.id, item.tier, 'prize', item.biome);
           } else {
-            wardrobe.push({ id: item.id, slot: item.slot, label: item.name || item.label, biome: item.biome, gold: item.tier === 'gold', tier: item.tier, color: item.color });
+            SaveSystem.addToWardrobe(item.id, item.tier, 'prize', item.biome);
           }
-          SaveSystem.set('wardrobe', wardrobe);
         }
         this_presentDust(scene, layer, opts, score, () => {
           scene.tweens.add({ targets: layer, alpha: 0, duration: 500, onComplete: () => { layer.destroy(); resolve({ tier, item, isDuplicate }); } });
