@@ -108,6 +108,7 @@ export default class Act4 extends ActScene {
 
       SaveSystem.set('progress.act4Complete', true);
       SaveSystem.set('progress.crownUnlocked', true);
+      SaveSystem.set('progress.storyComplete', true); // enables Revisit My Kingdom
 
       this.time.delayedCall(2000, () => {
         this.pip.express('bow'); // Pip bows to the new Princess

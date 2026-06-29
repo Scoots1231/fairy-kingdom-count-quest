@@ -28,7 +28,8 @@ class SaveSystem {
         act3Complete: false,
         act4Complete: false,
         crownUnlocked: false,
-        waldoForm: 'none'
+        waldoForm: 'none',
+        storyComplete: false
       },
       fairyDust: 0,
       fairyDustLifetime: 0,
@@ -57,6 +58,20 @@ class SaveSystem {
       pitySystems: {
         act1GoldAttempts: 0, act2GoldAttempts: 0,
         act3GoldAttempts: 0, act4GoldAttempts: 0
+      },
+      // Silent difficulty level per act (1–4), per the save schema.
+      difficulty: {
+        act1Level: 1, act2Level: 1, act3Level: 1, act4Level: 1
+      },
+      // Best prize tier achieved per act (for the Act Select screen).
+      bestTiers: { act1: null, act2: null, act3: null, act4: null },
+      // Audio channel volumes (set in the pause menu; persisted).
+      settings: { volumes: { music: 0.7, voice: 0.9, sfx: 0.8 } },
+      roomCustomization: {
+        currentOutfitOnAvatar: {
+          crown: null, hat: null, dress: null,
+          shirt: null, pants: null, shoes: null
+        }
       }
     };
   }
@@ -152,6 +167,21 @@ class SaveSystem {
 
   isNewGame() {
     return !this.saveData?.playerName;
+  }
+
+  // Long absence (14+ days since last session) — triggers the warm-up offer.
+  isLongAbsence() {
+    const last = this.saveData?.performance?.lastSession;
+    if (!last) return false;
+    const days = (Date.now() - new Date(last).getTime()) / (1000 * 60 * 60 * 24);
+    return days >= 14;
+  }
+
+  // Wipe to a fresh save and forget the file handle so the next save prompts
+  // for a new file (used by the New Adventure confirmation).
+  clearSave() {
+    this.saveData = this.createNewSave();
+    this.fileHandle = null;
   }
 }
 

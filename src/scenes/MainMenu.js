@@ -243,7 +243,7 @@ export default class MainMenu extends Phaser.Scene {
       }).setOrigin(0.5).setDepth(40);
 
       // After the coronation the menu gains a third option: Revisit My Kingdom.
-      const kingdomWon = SaveSystem.get('progress.act4Complete');
+      const kingdomWon = SaveSystem.get('progress.storyComplete') || SaveSystem.get('progress.act4Complete');
       const cont = createButton(this, {
         x: W / 2, y: kingdomWon ? H * 0.50 : H * 0.55, label: '✨ Continue Adventure',
         width: 420, height: 84, fontSize: 30, primary: true, nav: this.nav,
@@ -320,7 +320,9 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   beginNewAdventure() {
-    SaveSystem.saveData = SaveSystem.createNewSave();
+    // clearSave() also forgets the file handle so the first save prompts for a
+    // fresh file (per the save schema's New Game Reset).
+    SaveSystem.clearSave();
     this.fadeToScene('Cinematic');
   }
 
