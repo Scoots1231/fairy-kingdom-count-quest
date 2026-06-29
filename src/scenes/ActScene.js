@@ -178,6 +178,14 @@ export default class ActScene extends Phaser.Scene {
     });
   }
 
+  // If the real biome background art exists, show it full-bleed and tell the
+  // act to skip its procedural parallax tiles. Returns true when used.
+  useBackdrop(key) {
+    if (!this.textures.exists(key)) return false;
+    this.add.image(0, 0, key).setOrigin(0, 0).setDisplaySize(W, H).setDepth(0);
+    return true;
+  }
+
   // Generate a tiling texture once (used for parallax layers).
   makeTile(key, w, h, drawFn) {
     if (this.textures.exists(key)) return;

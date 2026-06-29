@@ -20,6 +20,7 @@ export default class Act2 extends ActScene {
   getReplayLine() { return 'The swamp again! The dragonflies will be pleased to see you.'; }
 
   buildScenery() {
+    if (this.useBackdrop('swamp_bg')) return; // real art present
     const sky = this.add.graphics().setDepth(0);
     sky.fillGradientStyle(0x2a2150, 0x2a2150, 0x2f4a52, 0x24403c, 1);
     sky.fillRect(0, 0, W, H);

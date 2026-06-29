@@ -57,11 +57,17 @@ export default function runPrizeReveal(scene, opts) {
     AudioManager.sfx('chest');
 
     const chest = scene.add.container(W / 2, 380);
-    const cg = scene.add.graphics();
-    cg.fillStyle(0x6a4a28, 1); cg.fillRoundedRect(-80, -50, 160, 100, 12);
-    cg.fillStyle(0x4a3018, 1); cg.fillRoundedRect(-80, -50, 160, 30, 12);
-    cg.fillStyle(0xffd86b, 1); cg.fillRect(-10, -20, 20, 30);
-    chest.add(cg);
+    let chestImg = null;
+    if (scene.textures.exists('chest_closed')) {
+      chestImg = scene.add.image(0, 0, 'chest_closed').setDisplaySize(180, 150);
+      chest.add(chestImg);
+    } else {
+      const cg = scene.add.graphics();
+      cg.fillStyle(0x6a4a28, 1); cg.fillRoundedRect(-80, -50, 160, 100, 12);
+      cg.fillStyle(0x4a3018, 1); cg.fillRoundedRect(-80, -50, 160, 30, 12);
+      cg.fillStyle(0xffd86b, 1); cg.fillRect(-10, -20, 20, 30);
+      chest.add(cg);
+    }
     layer.add(chest);
     scene.tweens.add({ targets: chest, scaleX: 1.05, scaleY: 0.95, duration: 150, yoyo: true, repeat: 4 });
 
@@ -70,6 +76,7 @@ export default function runPrizeReveal(scene, opts) {
 
     scene.time.delayedCall(1100, () => {
       // Chest opens — glow swells, item floats out.
+      if (chestImg && scene.textures.exists(`chest_open_${tier}`)) chestImg.setTexture(`chest_open_${tier}`);
       scene.tweens.add({ targets: glow, scaleX: 12, scaleY: 12, alpha: 0.6, duration: 700 });
       const itemArt = scene.add.container(W / 2, 360);
       const ig = scene.add.graphics();

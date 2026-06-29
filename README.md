@@ -88,7 +88,15 @@ The full game loop is implemented and playable end to end:
 ### Procedural-art & audio note
 
 All **art is drawn procedurally with Phaser graphics** (backgrounds, characters,
-Pip, Waldo, items) — designed to be swapped for real sprites later.
+Pip, Waldo, items) — designed to be swapped for real sprites later. A Boot
+scene probes for the real art files listed in `src/systems/Assets.js` (paths
+from the Art Style Bible) and uses any that exist, falling back to procedural
+art when absent — so **dropping a PNG at its documented path makes it appear
+automatically**, no code changes. Currently wired: act backgrounds
+(`assets/images/backgrounds/<biome>/<biome>_bg.png`), the wand cursor
+(`ui/cursor/wand_idle.png`), and the prize chest (`ui/chest/chest_*.png`).
+Characters intentionally stay procedural for now so the princess mirror can
+reflect dynamic outfits and Pip can animate expressions.
 
 Audio works today with **no asset files**:
 - **Sound effects** are synthesized live with the Web Audio API (clicks,

@@ -3,6 +3,7 @@
 // Game entry point. Builds the Phaser config (locked 16:9, 1280x720) and
 // boots the game with the full scene list. Scenes not yet built are stubs.
 
+import Boot from './scenes/Boot.js';
 import MainMenu from './scenes/MainMenu.js';
 import Cinematic from './scenes/Cinematic.js';
 import Customization from './scenes/Customization.js';
@@ -29,7 +30,7 @@ const config = {
   width: 1280,
   height: 720,
   backgroundColor: '#1a0a2e',
-  scene: [MainMenu, Cinematic, Customization, Act1, Act2, Act3, Act4, PrincessRoom, Shop, Closet, ActSelect],
+  scene: [Boot, MainMenu, Cinematic, Customization, Act1, Act2, Act3, Act4, PrincessRoom, Shop, Closet, ActSelect],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH

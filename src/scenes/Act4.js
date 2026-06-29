@@ -23,6 +23,7 @@ export default class Act4 extends ActScene {
   onCreated() { this.showBanner('Castle Approach'); }
 
   buildScenery() {
+    if (this.useBackdrop('castle_bg')) return; // real art present
     const sky = this.add.graphics().setDepth(0);
     sky.fillGradientStyle(0x241a4a, 0x241a4a, 0x4a2f6b, 0x6b4a8a, 1);
     sky.fillRect(0, 0, W, H);

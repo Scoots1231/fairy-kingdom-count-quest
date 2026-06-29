@@ -21,6 +21,7 @@ export default class Act1 extends ActScene {
 
   // ---- Scenery (parallax tile layers, placeholder art) -------------------
   buildScenery() {
+    if (this.useBackdrop('forest_bg')) return; // real art present
     // Static sky gradient.
     const sky = this.add.graphics().setDepth(0);
     sky.fillGradientStyle(0x0a0a2a, 0x0a0a2a, 0x162447, 0x1c2e1a, 1);

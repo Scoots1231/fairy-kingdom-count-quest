@@ -19,6 +19,7 @@ export default class Act3 extends ActScene {
   getReplayLine() { return 'The flower fields! Waldo always loves this one.'; }
 
   buildScenery() {
+    if (this.useBackdrop('fields_bg')) return; // real art present
     const sky = this.add.graphics().setDepth(0);
     sky.fillGradientStyle(0x6fc0f0, 0x6fc0f0, 0xbfe6f5, 0xd8f0c8, 1);
     sky.fillRect(0, 0, W, H);

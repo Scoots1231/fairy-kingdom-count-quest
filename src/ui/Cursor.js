@@ -98,9 +98,16 @@ export default class Cursor {
     });
     this.emitter.setDepth(9998);
 
-    // The wand sprite. Origin at the star tip = exact click hotspot.
-    this.wand = scene.add.image(start.x, start.y, WAND_TEXTURE);
-    this.wand.setOrigin(TIP_X / TEX_W, TIP_Y / TEX_H);
+    // The wand sprite. Use the real wand art if it has been loaded, else the
+    // procedural wand. Origin sits at the star tip = exact click hotspot.
+    if (scene.textures.exists('wand_idle')) {
+      this.wand = scene.add.image(start.x, start.y, 'wand_idle');
+      this.wand.setDisplaySize(48, 64);
+      this.wand.setOrigin(0.5, 0.08); // star tip near top-centre
+    } else {
+      this.wand = scene.add.image(start.x, start.y, WAND_TEXTURE);
+      this.wand.setOrigin(TIP_X / TEX_W, TIP_Y / TEX_H);
+    }
     this.wand.setDepth(9999);
     this.wand.setRotation(-0.32); // gentle idle angle
     this.emitter.startFollow(this.wand);
