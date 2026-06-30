@@ -69,6 +69,19 @@ export default class Pip extends Phaser.GameObjects.Container {
     ]);
 
     this._drawFace('idle');
+
+    // Real Pip art (when loaded): show the sprite and hide the procedural body.
+    // All the existing animation methods keep running harmlessly on the hidden
+    // parts, while the container's bob/bounce + tear still animate the sprite.
+    this.useSprite = s.textures.exists('pip_idle');
+    if (this.useSprite) {
+      this.sprite = s.add.image(0, -4, 'pip_idle');
+      this.sprite.setScale(100 / this.sprite.height);
+      this.add(this.sprite);
+      [this.halo, this.wingL, this.wingR, this.body_, this.head,
+        this.antL, this.antR, this.eyeL, this.eyeR, this.mouth, this.glasses]
+        .forEach((o) => o.setVisible(false));
+    }
   }
 
   _drawFace(emotion) {

@@ -161,6 +161,18 @@ export default class MainMenu extends Phaser.Scene {
     branch.lineTo(180, 90);
     branch.strokePath();
 
+    // Real Pip art on the menu when loaded.
+    if (this.textures.exists('pip_idle')) {
+      const img = this.add.image(0, 0, 'pip_idle');
+      img.setScale(150 / img.height);
+      pip.add([branch, img]);
+      pip.setDepth(50);
+      this.tweens.add({ targets: pip, y: py - 8, duration: 1500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      this.pip = pip;
+      this.buildSpeechBubble();
+      return;
+    }
+
     // Wings (animated).
     const wingL = this.add.ellipse(-12, -6, 26, 40, 0xbfeaff, 0.75);
     const wingR = this.add.ellipse(12, -6, 26, 40, 0xbfeaff, 0.75);

@@ -41,6 +41,16 @@ export default class PrincessPreview extends Phaser.GameObjects.Container {
     this.gfx = scene.add.graphics();
     this.figure.add(this.gfx);
 
+    // Real princess art (acts only). The mirror contexts stay procedural so the
+    // live preview can reflect dynamic outfit changes.
+    this.useSprite = !!opts.useSprite && scene.textures.exists('princess_idle');
+    if (this.useSprite) {
+      this.sprite = scene.add.image(0, 30 * this.unit, 'princess_idle');
+      this.sprite.setScale(((opts.height || 360) * 1.05) / this.sprite.height);
+      this.sprite.setOrigin(0.5, 0.62);
+      this.figure.add(this.sprite);
+    }
+
     // Empty-slot silhouettes (closet only).
     this.slotGfx = scene.add.graphics();
 
@@ -80,6 +90,9 @@ export default class PrincessPreview extends Phaser.GameObjects.Container {
     const u = this.unit;
     const g = this.gfx;
     g.clear();
+
+    // Real-art mode: the sprite is the figure; skip procedural drawing.
+    if (this.useSprite) { this.backdrop.clear(); this.slotGfx.clear(); return; }
 
     const body = BODY[this.character.bodyShape] || BODY.average;
     const hair = HAIR_COLORS[this.character.hairColor] || HAIR_COLORS.brown;

@@ -23,6 +23,17 @@ export default class Waldo extends Phaser.GameObjects.Container {
   draw() {
     const g = this.gfx;
     g.clear();
+
+    // Real Waldo art for horse / unicorn forms, when loaded.
+    const key = this.form === 'unicorn' ? 'waldo_unicorn' : (this.form === 'horse' ? 'waldo_horse' : null);
+    if (key && this.scene.textures.exists(key)) {
+      if (!this.img) { this.img = this.scene.add.image(0, 0, key).setOrigin(0.5, 0.6); this.add(this.img); }
+      this.img.setTexture(key).setVisible(true);
+      this.img.setScale(170 / this.img.height);
+      return;
+    }
+    if (this.img) this.img.setVisible(false);
+
     const bodyCol = this.form === 'unicorn' ? 0xf5f0ff : 0x8a5a2a;
     if (this.form === 'none') { // just a tail/treeline hint
       g.fillStyle(0x3f6f3f, 1); g.fillEllipse(0, 40, 120, 30); return;

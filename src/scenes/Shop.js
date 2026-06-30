@@ -50,7 +50,13 @@ export default class Shop extends Phaser.Scene {
   }
 
   buildBenny() {
-    const c = this.add.container(180, 200);
+    const c = this.add.container(180, 220);
+    if (this.textures.exists('benny_idle')) {
+      const img = this.add.image(0, 0, 'benny_idle').setOrigin(0.5);
+      img.setScale(240 / img.height);
+      c.add(img);
+      return;
+    }
     const g = this.add.graphics();
     g.fillStyle(0x8a5a35, 1); g.fillEllipse(0, 40, 90, 110); g.fillCircle(0, -30, 40); // body+head
     g.fillStyle(0x6a4424, 1); g.fillEllipse(0, 110, 70, 30); // tail/feet

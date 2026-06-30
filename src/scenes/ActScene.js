@@ -103,7 +103,7 @@ export default class ActScene extends Phaser.Scene {
       this.waldo.setDepth(38);
     }
 
-    this.princess = new PrincessPreview(this, 380, py, { height: riding ? 240 : 280, static: true });
+    this.princess = new PrincessPreview(this, 380, py, { height: riding ? 240 : 280, static: true, useSprite: true });
     this.princess.setCharacter(SaveSystem.get('character')).setOutfit(SaveSystem.get('currentOutfit')).redraw();
     this.princess.setDepth(40);
     this.walkBob = this.tweens.add({ targets: this.princess, y: py - 8, duration: 520, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
